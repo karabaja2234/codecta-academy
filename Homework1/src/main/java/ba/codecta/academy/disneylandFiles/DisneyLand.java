@@ -1,4 +1,4 @@
-package ba.codecta.academy;
+package ba.codecta.academy.disneylandFiles;
 
 public class DisneyLand {
     public static void start() {

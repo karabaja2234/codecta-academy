@@ -1,5 +1,7 @@
 package ba.codecta.academy;
-import java.util.Arrays;
+
+import ba.codecta.academy.disneylandFiles.DisneyLand;
+import ba.codecta.academy.netflixFiles.Netflix;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -10,7 +12,6 @@ import org.apache.commons.cli.ParseException;
 
 public class mainApp {
     public static void main(String[] args) {
-        System.out.println("Hello world..!!!");
         Options options = new Options();
         options.addOption(Option.builder("i")
                 .longOpt("option")
