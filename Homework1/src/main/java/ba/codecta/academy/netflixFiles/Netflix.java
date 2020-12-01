@@ -1,9 +1,12 @@
 package ba.codecta.academy.netflixFiles;
+import ba.codecta.academy.mainApp;
 import ba.codecta.academy.readFile;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class Netflix {
     public static void start() {
+        Logger logger = Logger.getLogger(String.valueOf(mainApp.class));
         boolean closeMenu = false;
         boolean optionIsChosen;
         do {
@@ -25,6 +28,7 @@ public class Netflix {
             if(optionIsChosen == true) {
                 switch (chosenOption) {
                     case 1:
+                        logger.info("User has chosen option 1 in the Netflix section");
                         ArrayList<Movie> movies = new ArrayList<Movie>();
                         readFile file = new readFile();
                         file.openFile("../movies.txt");
@@ -36,12 +40,14 @@ public class Netflix {
                         }
                         break;
                     case 2:
+                        logger.info("User has chosen option 2 in the Netflix section");
                         ArrayList<Movie> moviesList = new ArrayList<Movie>();
                         readFile file2 = new readFile();
                         file2.openFile("../movies.txt");
                         file2.readMovies(moviesList);
                         file2.closeFile();
                         int i = 1;
+                        System.out.println("\n\n*** Choose one of the movies to see some more info! ***");
                         for(Movie movie : moviesList) {
                             System.out.println(i + ". - " + movie.getName());
                             i++;
@@ -66,6 +72,7 @@ public class Netflix {
                         System.out.println("******************************");
                         break;
                     case 3:
+                        logger.info("User has chosen option 3 in the Netflix section");
                         closeMenu = true;
                         break;
                 }

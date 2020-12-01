@@ -1,10 +1,13 @@
 package ba.codecta.academy.disneylandFiles;
+import ba.codecta.academy.mainApp;
 import ba.codecta.academy.readFile;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class DisneyLand {
     public static void start() {
+        Logger logger = Logger.getLogger(String.valueOf(mainApp.class));
         boolean closeMenu = false;
         boolean optionIsChosen;
         do {
@@ -26,12 +29,14 @@ public class DisneyLand {
             if(optionIsChosen == true) {
                 switch (chosenOption) {
                     case 1:
+                        logger.info("User has chosen option 1 in DisneyLand section");
                         ArrayList<disneyMovie> moviesList = new ArrayList<disneyMovie>();
                         readFile file = new readFile();
                         file.openFile("../disneyMovies.txt");
                         file.readDisneyMovies(moviesList);
                         file.closeFile();
                         int i = 1;
+                        System.out.println("\n\n*** Choose one of the movies to see some more info! ***");
                         for(disneyMovie movie : moviesList) {
                             System.out.println(i + ". - " + movie.getName());
                             i++;
@@ -58,12 +63,14 @@ public class DisneyLand {
                         System.out.println("******************************");
                         break;
                     case 2:
+                        logger.info("User has chosen option 2 in DisneyLand section");
                         ArrayList<disneyCharacter> charactersList = new ArrayList<disneyCharacter>();
                         readFile file2 = new readFile();
                         file2.openFile("../disneyCharacters.txt");
                         file2.readDisneyCharacters(charactersList);
                         file2.closeFile();
                         int j = 1;
+                        System.out.println("\n\n*** Choose one of the characters to see some more info! ***");
                         for(disneyCharacter character : charactersList) {
                             System.out.println(j + ". - " + character.getName());
                             j++;
@@ -88,6 +95,7 @@ public class DisneyLand {
                         System.out.println("******************************");
                         break;
                     case 3:
+                        logger.info("User has chosen option 3 in DisneyLand section");
                         closeMenu = true;
                         break;
                 }
