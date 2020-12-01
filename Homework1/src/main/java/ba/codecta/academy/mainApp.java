@@ -37,10 +37,6 @@ public class mainApp {
                 if(option.toLowerCase().equals("disneyland")) {
                     DisneyLand.start();
                 } else if(option.toLowerCase().equals("netflix")) {
-                    if(cmd.hasOption("s")) {
-                        String genre = cmd.getOptionValue("s");
-
-                    }
                     Netflix.start();
                 }
             }

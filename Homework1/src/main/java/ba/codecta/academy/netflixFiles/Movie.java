@@ -17,18 +17,12 @@ public class Movie {
        System.out.println(this.idNumber + " - " + this.name);
    }
 
-   String getIdNumber() {
-       return this.idNumber;
-   }
-
    String getNumberOfVotes() {
        return this.numberOfVotes;
    }
-
    String getName() {
        return this.name;
    }
-
    String getRating() {
        return this.rating;
    }

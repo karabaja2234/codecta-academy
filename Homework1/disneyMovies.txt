@@ -1,0 +1,5 @@
+1 TheHunchbackOfNotreDame 1996 7 91 89
+2 TheSwordInTheStone 1963 4 79 90
+3 TreasurePlanet 2002 2 95 95
+4 TheBlackCauldron 1985 1 80 84
+5 BrotherBear 2003 3 85 94
