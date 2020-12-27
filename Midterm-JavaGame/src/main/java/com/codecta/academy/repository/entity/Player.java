@@ -22,19 +22,10 @@ public class Player extends  ModelObject{
     private String name;
 
     @ManyToOne
-    private Game game;
-
+    private Dungeon dungeon;
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
     }
 
     public String getName() {
@@ -67,6 +58,14 @@ public class Player extends  ModelObject{
 
     public void setHealingPotion(Integer healingPotion) {
         this.healingPotion = healingPotion;
+    }
+
+    public Dungeon getDungeon() {
+        return dungeon;
+    }
+
+    public void setDungeon(Dungeon dungeon) {
+        this.dungeon = dungeon;
     }
 
     @Override

@@ -18,6 +18,12 @@ public class Monster extends  ModelObject{
     private Integer damage;
     private String name;
 
+    @ManyToOne
+    private Item item;
+
+    @ManyToOne
+    private Dungeon dungeon;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -44,6 +50,22 @@ public class Monster extends  ModelObject{
 
     public void setDamage(Integer damage) {
         this.damage = damage;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Dungeon getDungeon() {
+        return dungeon;
+    }
+
+    public void setDungeon(Dungeon dungeon) {
+        this.dungeon = dungeon;
     }
 
     @Override

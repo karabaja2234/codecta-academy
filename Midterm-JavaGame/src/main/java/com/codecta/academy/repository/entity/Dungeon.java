@@ -1,6 +1,8 @@
 package com.codecta.academy.repository.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(schema = "codecta", name = "DUNGEON")
@@ -14,37 +16,16 @@ public class Dungeon extends  ModelObject{
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
-    private Integer health;
-    private Integer damage;
-    private String name;
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+    @OneToMany(mappedBy = "dungeon", fetch = FetchType.LAZY)
+    private List<Monster> monsters = new ArrayList<>();
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getHealth() {
-        return health;
-    }
-
-    public void setHealth(Integer health) {
-        this.health = health;
-    }
-
-    public Integer getDamage() {
-        return damage;
-    }
-
-    public void setDamage(Integer damage) {
-        this.damage = damage;
-    }
+    @OneToMany(mappedBy = "dungeon", fetch = FetchType.LAZY)
+    private List<Player> players = new ArrayList<>();
 
     @Override
     public Integer getId() {

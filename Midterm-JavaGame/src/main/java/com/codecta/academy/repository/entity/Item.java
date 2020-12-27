@@ -1,6 +1,8 @@
 package com.codecta.academy.repository.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(schema = "codecta", name = "ITEM")
@@ -16,6 +18,9 @@ public class Item extends  ModelObject{
     private Integer id;
     private Integer value;
     private String name;
+
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<Monster> monsters = new ArrayList<>();
 
     public void setId(Integer id) {
         this.id = id;

@@ -1,0 +1,45 @@
+package com.codecta.academy.services.model;
+
+import com.codecta.academy.repository.entity.Dungeon;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MonsterDto {
+    private Integer id;
+    private Integer health;
+    private Integer damage;
+    private String name;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+
+    public Integer getDamage() {
+        return damage;
+    }
+
+    public void setDamage(Integer damage) {
+        this.damage = damage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
