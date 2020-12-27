@@ -1,9 +1,12 @@
 package com.codecta.academy.services.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LevelDto {
     private Integer id;
     private Integer difficulty;
-    private Integer mapId;
+    private List<MapDto> maps = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -21,11 +24,11 @@ public class LevelDto {
         this.difficulty = difficulty;
     }
 
-    public Integer getMapId() {
-        return mapId;
+    public List<MapDto> getMaps() {
+        return maps;
     }
 
-    public void setMapId(Integer mapId) {
-        this.mapId = mapId;
+    public void setMaps(List<MapDto> maps) {
+        this.maps = maps;
     }
 }

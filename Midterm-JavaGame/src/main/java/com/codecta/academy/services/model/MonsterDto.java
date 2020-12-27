@@ -1,10 +1,5 @@
 package com.codecta.academy.services.model;
 
-import com.codecta.academy.repository.entity.Dungeon;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MonsterDto {
     private Integer id;
     private Integer health;

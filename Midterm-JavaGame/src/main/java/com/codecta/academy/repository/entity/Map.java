@@ -26,7 +26,7 @@ public class Map extends  ModelObject{
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "map", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "map",fetch= FetchType.LAZY)
     private List<Dungeon> dungeons = new ArrayList<>();
 
     public List<Dungeon> getDungeons() {
@@ -48,16 +48,14 @@ public class Map extends  ModelObject{
         this.game = game;
     }
 
-    @OneToMany(mappedBy = "map", fetch = FetchType.LAZY)
-    private List<Level> levels = new ArrayList<>();
+    @ManyToOne
+    private Level level;
 
-    public List<Level> getLevels() {
-        return levels;
+    public Level getLevel() {
+        return level;
     }
 
-    public void setLevels(List<Level> levels) {
-        this.levels = levels;
+    public void setLevel(Level level) {
+        this.level = level;
     }
-
-
 }

@@ -26,7 +26,7 @@ public class Dungeon extends  ModelObject{
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "dungeon", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dungeon",fetch= FetchType.LAZY)
     private List<Monster> monsters = new ArrayList<>();
 
     public List<Monster> getMonsters() {
@@ -37,7 +37,7 @@ public class Dungeon extends  ModelObject{
         this.monsters = monsters;
     }
 
-    @OneToMany(mappedBy = "dungeon", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dungeon",fetch= FetchType.LAZY)
     private List<Player> players = new ArrayList<>();
 
     public List<Player> getPlayers() {

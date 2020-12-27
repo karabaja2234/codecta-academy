@@ -26,7 +26,7 @@ public class Game extends ModelObject{
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "game",fetch= FetchType.LAZY)
     private List<Map> maps = new ArrayList<>();
 
     public List<Map> getMaps() {

@@ -1,6 +1,8 @@
 package com.codecta.academy.repository.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(schema = "codecta", name = "LEVEL")
@@ -33,14 +35,14 @@ public class Level extends  ModelObject{
         this.difficulty = difficulty;
     }
 
-    @ManyToOne
-    private Map map;
+    @OneToMany(mappedBy = "level",fetch= FetchType.LAZY)
+    private List<Map> maps = new ArrayList<>();
 
-    public Map getMap() {
-        return map;
+    public List<Map> getMaps() {
+        return maps;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public void setMaps(List<Map> maps) {
+        this.maps = maps;
     }
 }

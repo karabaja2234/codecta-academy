@@ -44,7 +44,7 @@ public class Item extends  ModelObject{
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item",fetch= FetchType.LAZY)
     private List<Monster> monsters = new ArrayList<>();
 
     public List<Monster> getMonsters() {
