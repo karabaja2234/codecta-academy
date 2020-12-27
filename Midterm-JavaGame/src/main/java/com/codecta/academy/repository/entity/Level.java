@@ -16,6 +16,11 @@ public class Level extends  ModelObject{
     private Integer id;
     private Integer difficulty;
 
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -28,8 +33,14 @@ public class Level extends  ModelObject{
         this.difficulty = difficulty;
     }
 
-    @Override
-    public Integer getId() {
-        return this.id;
+    @ManyToOne
+    private Map map;
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

@@ -17,12 +17,47 @@ public class Map extends  ModelObject{
     @Column(name = "ID", nullable = false)
     private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Override
     public Integer getId() {
         return this.id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @OneToMany(mappedBy = "map", fetch = FetchType.LAZY)
+    private List<Dungeon> dungeons = new ArrayList<>();
+
+    public List<Dungeon> getDungeons() {
+        return dungeons;
+    }
+
+    public void setDungeons(List<Dungeon> dungeons) {
+        this.dungeons = dungeons;
+    }
+
+    @ManyToOne
+    private Game game;
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    @OneToMany(mappedBy = "map", fetch = FetchType.LAZY)
+    private List<Level> levels = new ArrayList<>();
+
+    public List<Level> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(List<Level> levels) {
+        this.levels = levels;
+    }
+
+
 }

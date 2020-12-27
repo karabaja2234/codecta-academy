@@ -10,12 +10,13 @@ public interface GameService {
 
     List<PlayerDto> findAllPlayers();
     PlayerDto findPlayerById(Integer id);
-    PlayerDto addPlayer(PlayerDto character);
     PlayerDto updatePlayer(Integer id, PlayerDto player);
     List<GameDto> findAllGames();
     GameDto findGameById(Integer id);
     GameDto addGame(GameDto game);
     GameDto updateGame(Integer id, GameDto game);
-    List<PlayerDto> findPlayerByGameId(Integer id);
+    /*
     List<GameDto> findGameByPlayerName(String name);
+    List<PlayerDto> findPlayerByGameId(Integer id);
+    */
 }

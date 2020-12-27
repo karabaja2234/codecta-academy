@@ -73,6 +73,7 @@ public class GameResource {
         return Response.ok(updatedPlayer).build();
     }
 
+    /*
     @POST
     @Path("/players")
     @Consumes({MediaType.APPLICATION_JSON})
@@ -85,7 +86,7 @@ public class GameResource {
             return Response.created(uriBuilder.build()).entity(newPlayer).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).entity(new Error("CDT-001", "Invalid request. Unknown theme park in request.")) .build();
-    }
+    }*/
 
     @POST
     @Path("/games")
@@ -133,6 +134,7 @@ public class GameResource {
         return Response.ok(game).build();
     }
 
+    /*
     @GET
     @Path("/games/{id}/players")
     @Produces(MediaType.APPLICATION_JSON)
@@ -153,5 +155,5 @@ public class GameResource {
             return Response.noContent().build();
         }
         return Response.ok(gameDtoList).build();
-    }
+    }*/
 }

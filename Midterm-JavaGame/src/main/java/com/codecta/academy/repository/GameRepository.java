@@ -14,11 +14,12 @@ public class GameRepository extends Repository<Game, Integer> {
         super(Game.class);
     }
 
+    /*
     public List<Game> findByPlayerName(String name)
     {
         Query query = entityManager.createQuery("SELECT distinct t FROM Game t JOIN t.players c where c.name like :name");
         query.setParameter("name", name + '%');
         List resultList = query.getResultList();
         return (List<Game>) resultList;
-    }
+    }*/
 }

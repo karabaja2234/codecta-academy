@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MapDto {
     private Integer id;
-    private List<Dungeon> dungeons = new ArrayList<>();
+    private Integer gameId;
 
     public Integer getId() {
         return id;
@@ -16,11 +16,11 @@ public class MapDto {
         this.id = id;
     }
 
-    public List<Dungeon> getDungeons() {
-        return dungeons;
+    public Integer getGameId() {
+        return gameId;
     }
 
-    public void setDungeons(List<Dungeon> dungeons) {
-        this.dungeons = dungeons;
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
     }
 }

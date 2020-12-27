@@ -17,19 +17,23 @@ public class Game extends ModelObject{
     @Column(name = "ID", nullable = false)
     private Integer id;
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
-    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
-    private List<Player> players = new ArrayList<>();
-
     @Override
     public Integer getId() {
         return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    private List<Map> maps = new ArrayList<>();
+
+    public List<Map> getMaps() {
+        return maps;
+    }
+
+    public void setMaps(List<Map> maps) {
+        this.maps = maps;
     }
 }

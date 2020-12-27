@@ -21,19 +21,13 @@ public class Player extends  ModelObject{
     private Integer healingPotion;
     private String name;
 
-    @ManyToOne
-    private Dungeon dungeon;
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getHealth() {
@@ -60,16 +54,22 @@ public class Player extends  ModelObject{
         this.healingPotion = healingPotion;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @ManyToOne
+    private Dungeon dungeon;
+
     public Dungeon getDungeon() {
         return dungeon;
     }
 
     public void setDungeon(Dungeon dungeon) {
         this.dungeon = dungeon;
-    }
-
-    @Override
-    public Integer getId() {
-        return this.id;
     }
 }

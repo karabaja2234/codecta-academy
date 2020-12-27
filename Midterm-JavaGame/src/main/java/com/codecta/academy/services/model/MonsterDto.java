@@ -10,6 +10,8 @@ public class MonsterDto {
     private Integer health;
     private Integer damage;
     private String name;
+    private Integer dungeonId;
+    private Integer itemId;
 
     public Integer getId() {
         return id;
@@ -41,5 +43,21 @@ public class MonsterDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getDungeonId() {
+        return dungeonId;
+    }
+
+    public void setDungeonId(Integer dungeonId) {
+        this.dungeonId = dungeonId;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 }

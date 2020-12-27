@@ -18,22 +18,13 @@ public class Monster extends  ModelObject{
     private Integer damage;
     private String name;
 
-    @ManyToOne
-    private Item item;
-
-    @ManyToOne
-    private Dungeon dungeon;
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getHealth() {
@@ -52,6 +43,17 @@ public class Monster extends  ModelObject{
         this.damage = damage;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @ManyToOne
+    private Item item;
+
     public Item getItem() {
         return item;
     }
@@ -60,16 +62,14 @@ public class Monster extends  ModelObject{
         this.item = item;
     }
 
+    @ManyToOne
+    private Dungeon dungeon;
+
     public Dungeon getDungeon() {
         return dungeon;
     }
 
     public void setDungeon(Dungeon dungeon) {
         this.dungeon = dungeon;
-    }
-
-    @Override
-    public Integer getId() {
-        return this.id;
     }
 }

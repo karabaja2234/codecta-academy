@@ -20,6 +20,7 @@ public class PlayerRepository extends Repository<Player, Integer>{
         super(Player.class);
     }
 
+    /*
     public List<Player> findAllByGameId(Integer gameId) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Player> cq = cb.createQuery(Player.class);
@@ -29,7 +30,7 @@ public class PlayerRepository extends Repository<Player, Integer>{
         all.where(cb.equal(root.get("game"), gameId));
         TypedQuery<Player> allQuery = entityManager.createQuery(all);
         return allQuery.getResultList();
-    }
+    }*/
 
     public List<Player> findAllByIdList(List<Integer> ids) {
         Query query = entityManager.createQuery("SELECT d FROM Player d where d.id IN (:ids)");

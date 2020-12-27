@@ -19,19 +19,13 @@ public class Item extends  ModelObject{
     private Integer value;
     private String name;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private List<Monster> monsters = new ArrayList<>();
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getValue() {
@@ -42,8 +36,22 @@ public class Item extends  ModelObject{
         this.value = value;
     }
 
-    @Override
-    public Integer getId() {
-        return this.id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<Monster> monsters = new ArrayList<>();
+
+    public List<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(List<Monster> monsters) {
+        this.monsters = monsters;
     }
 }

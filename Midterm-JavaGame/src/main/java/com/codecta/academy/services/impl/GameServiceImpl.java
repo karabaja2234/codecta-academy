@@ -54,22 +54,6 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public PlayerDto addPlayer(PlayerDto player) {
-        if(player.getGameId() == null) {
-            return null;
-        }
-        Game game = gameRepository.findById(player.getGameId());
-        if(game == null) {
-            return null;
-        }
-        ModelMapper modelMapper = new ModelMapper();
-        Player newPlayer = modelMapper.map(player, Player.class);
-        newPlayer.setGame(game);
-        newPlayer = playerRepository.add(newPlayer);
-        return modelMapper.map(newPlayer, PlayerDto.class);
-    }
-
-    @Override
     public PlayerDto updatePlayer(Integer id, PlayerDto player) {
         Player playerToUpdate = playerRepository.findById(id);
         if(playerToUpdate != null) {
@@ -118,7 +102,7 @@ public class GameServiceImpl implements GameService {
     public GameDto updateGame(Integer id, GameDto game) {
         Game dbGame = gameRepository.findById(id);
         if (dbGame != null) {
-            dbGame.setPlayers(game.getPlayers());
+            //dbGame.setPlayers(game.getPlayers());
             dbGame = gameRepository.save(dbGame);
             ModelMapper modelMapper = new ModelMapper();
             return modelMapper.map(dbGame, GameDto.class);
@@ -126,6 +110,7 @@ public class GameServiceImpl implements GameService {
         return null;
     }
 
+    /*
     @Override
     public List<PlayerDto> findPlayerByGameId(Integer id) {
         List<Player> playerList = playerRepository.findAllByGameId(id);
@@ -152,5 +137,5 @@ public class GameServiceImpl implements GameService {
             gameDtoList.add(modelMapper.map(game, GameDto.class));
         }
         return gameDtoList;
-    }
+    }*/
 }
