@@ -253,6 +253,18 @@ public class GameResource {
     }
 
     @GET
+    @Path("/players/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPlayerById(@PathParam("id") Integer id)
+    {
+        PlayerDto player = gameService.findPlayerById(id);
+        if(player == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(player).build();
+    }
+
+    @GET
     @Path("/items")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllItems()
@@ -291,9 +303,21 @@ public class GameResource {
     @PUT
     @Path("/players/{id}/move")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePlayersDungeon(@PathParam("id") Integer id)
+    public Response moveToNextDungeon(@PathParam("id") Integer id)
     {
-        PlayerDto updatedPlayer = gameService.updatePlayersDungeon(id);
+        PlayerDto updatedPlayer = gameService.nextDungeon(id);
+        if(updatedPlayer == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(updatedPlayer).build();
+    }
+
+    @PUT
+    @Path("/players/{id}/goback")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response goBackToPreviousDungeon(@PathParam("id") Integer id)
+    {
+        PlayerDto updatedPlayer = gameService.goBack(id);
         if(updatedPlayer == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -335,7 +359,6 @@ public class GameResource {
         }
         return Response.ok(updatedPlayer).build();
     }
-
 
     /*
     @GET

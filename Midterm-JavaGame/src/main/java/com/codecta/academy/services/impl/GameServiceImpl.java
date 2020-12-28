@@ -236,7 +236,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public PlayerDto updatePlayersDungeon(Integer id) {
+    public PlayerDto nextDungeon(Integer id) {
         Player playerToUpdate = playerRepository.findById(id);
         if(playerToUpdate != null) {
             ModelMapper modelMapper = new ModelMapper();
@@ -251,6 +251,23 @@ public class GameServiceImpl implements GameService {
                     playerToUpdate = playerRepository.save(playerToUpdate);
                     return modelMapper.map(playerToUpdate, PlayerDto.class);
                 }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PlayerDto goBack(Integer id) {
+        Player playerToUpdate = playerRepository.findById(id);
+        if(playerToUpdate != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            PlayerDto player = modelMapper.map(playerToUpdate, PlayerDto.class);
+            Dungeon previousDungeon = dungeonRepository.findById(player.getDungeonId() - 1);
+            if(previousDungeon != null) {
+                playerToUpdate.setDungeon(previousDungeon);
+                playerToUpdate.setStatusMessage("Player moved to dungeon " + previousDungeon.getId() + "!");
+                playerToUpdate = playerRepository.save(playerToUpdate);
+                return modelMapper.map(playerToUpdate, PlayerDto.class);
             }
         }
         return null;
@@ -286,6 +303,7 @@ public class GameServiceImpl implements GameService {
             Monster currentMonster = currentDungeonsMonsters.get(0);
             if(currentMonster.getHealth() <= 0) {
                 Item monstersItem = currentMonster.getItem();
+                Item itemToUpdate = itemRepository.findById(monstersItem.getId());
                 if(monstersItem.getName().equals("Healing potion")) {
                     playerToUpdate.setHealingPotion(player.getHealingPotion() + monstersItem.getValue());
                     playerToUpdate.setStatusMessage("Player collected a healing potion!");
@@ -296,6 +314,9 @@ public class GameServiceImpl implements GameService {
                     playerToUpdate.setHasOrbOfQuarkus(true);
                     playerToUpdate.setStatusMessage("Congratulations, the Orb of Quarkus is yours!");
                 }
+                itemToUpdate.setValue(0);
+                itemToUpdate = itemRepository.save(itemToUpdate);
+                modelMapper.map(itemToUpdate, ItemDto.class);
             } else {
                 playerToUpdate.setStatusMessage("In order to collect items, you have to kill the monster!");
             }
@@ -349,6 +370,15 @@ public class GameServiceImpl implements GameService {
         return null;
     }
 
+    @Override
+    public PlayerDto findPlayerById(Integer id) {
+        Player player = playerRepository.findById(id);
+        if(player == null) {
+            return null;
+        }
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(player, PlayerDto.class);
+    }
     /*
     @Override
     public PlayerDto findPlayerById(Integer id) {
