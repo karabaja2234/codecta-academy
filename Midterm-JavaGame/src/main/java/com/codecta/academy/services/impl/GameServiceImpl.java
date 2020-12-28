@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @ApplicationScoped
 @Transactional
@@ -307,12 +308,46 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public PlayerDto fightMonster(Integer id, PlayerDto player) {
-        return null;
-    }
+    public PlayerDto fightMonster(Integer id) {
+        Player playerToUpdate = playerRepository.findById(id);
+        if(playerToUpdate != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            PlayerDto player = modelMapper.map(playerToUpdate, PlayerDto.class);
+            Dungeon currentDungeon = dungeonRepository.findById(player.getDungeonId());
+            List<Monster> currentDungeonsMonsters = currentDungeon.getMonsters();
+            Monster currentMonster = currentDungeonsMonsters.get(0);
+            if(currentMonster.getHealth() <= 0) {
+                playerToUpdate.setStatusMessage("Monster " + currentMonster.getName() + " has already been killed!");
+                playerToUpdate = playerRepository.save(playerToUpdate);
+                return modelMapper.map(playerToUpdate, PlayerDto.class);
+            } else {
+                Integer playersHealth = player.getHealth();
+                Integer playersDamage = player.getDamage();
+                Integer monstersHealth = currentMonster.getHealth();
+                Integer monstersDamage = currentMonster.getDamage();
+                Random rand = new Random();
+                while(playersHealth > 0 && monstersHealth > 0) {
+                    monstersHealth = monstersHealth - playersDamage*(rand.nextInt(6 - 1 + 1) + 1);
+                    playersHealth = playersHealth - monstersDamage*(rand.nextInt(6 - 1 + 1) + 1);
+                }
 
-    @Override
-    public MonsterDto updateMonstersHealth(Integer id, MonsterDto monster) {
+                Monster monsterToUpdate = monsterRepository.findById(currentMonster.getId());
+                monsterToUpdate.setHealth(monstersHealth);
+                modelMapper.map(monsterToUpdate, MonsterDto.class);
+                playerToUpdate.setHealth(playersHealth);
+
+                if(playersHealth > 0) {
+                    playerToUpdate.setStatusMessage("You have successfully beaten monster " + currentMonster.getName() + "!");
+                } else {
+                    playerToUpdate.setStatusMessage("Game over!");
+                    playerToUpdate.setHealingPotion(0);
+                    playerToUpdate.setDamageIncreasePotion(0);
+                    playerToUpdate.setDungeon(dungeonRepository.findById(1));
+                }
+                playerToUpdate = playerRepository.save(playerToUpdate);
+                return modelMapper.map(playerToUpdate, PlayerDto.class);
+            }
+        }
         return null;
     }
 

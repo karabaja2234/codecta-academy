@@ -301,6 +301,18 @@ public class GameResource {
     }
 
     @PUT
+    @Path("/players/{id}/fight")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response fightMonster(@PathParam("id") Integer id)
+    {
+        PlayerDto updatedPlayer = gameService.fightMonster(id);
+        if(updatedPlayer == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(updatedPlayer).build();
+    }
+
+    @PUT
     @Path("/players/{id}/stronger")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updatePlayersDamage(@PathParam("id") Integer id)
@@ -323,6 +335,7 @@ public class GameResource {
         }
         return Response.ok(updatedPlayer).build();
     }
+
 
     /*
     @GET

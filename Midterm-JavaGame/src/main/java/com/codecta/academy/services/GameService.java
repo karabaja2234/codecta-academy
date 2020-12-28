@@ -26,13 +26,12 @@ public interface GameService {
     List<ItemDto> findAllItems();
     List<MonsterDto> findAllMonsters();
 
+    //Methods for updating information about players and monsters
     PlayerDto updatePlayersHealth(Integer id);
     PlayerDto updatePlayersDungeon(Integer id);
     PlayerDto updatePlayersDamage(Integer id);
     PlayerDto collectItems(Integer id);
-    PlayerDto fightMonster(Integer id, PlayerDto player);
-
-    MonsterDto updateMonstersHealth(Integer id, MonsterDto monster);
+    PlayerDto fightMonster(Integer id);
 
     /*
     PlayerDto findPlayerById(Integer id);
