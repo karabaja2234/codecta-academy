@@ -34,13 +34,4 @@ public interface GameService {
     PlayerDto updatePlayersDamage(Integer id);
     PlayerDto collectItems(Integer id);
     PlayerDto fightMonster(Integer id);
-
-    /*
-    PlayerDto findPlayerById(Integer id);
-    PlayerDto updatePlayer(Integer id, PlayerDto player);
-    GameDto findGameById(Integer id);
-    GameDto updateGame(Integer id, GameDto game);
-    List<GameDto> findGameByPlayerName(String name);
-    List<PlayerDto> findPlayerByGameId(Integer id);
-    */
 }

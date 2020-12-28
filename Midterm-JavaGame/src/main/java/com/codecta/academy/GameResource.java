@@ -2,7 +2,6 @@ package com.codecta.academy;
 
 import com.codecta.academy.services.GameService;
 import com.codecta.academy.services.model.*;
-
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -359,65 +358,4 @@ public class GameResource {
         }
         return Response.ok(updatedPlayer).build();
     }
-
-    /*
-    @GET
-    @Path("/players/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlayerById(@PathParam("id") Integer id)
-    {
-        PlayerDto player = gameService.findPlayerById(id);
-        if(player == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(player).build();
-    }
-
-    @POST
-    @Path("/players")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public Response createPlayer(PlayerDto player, @Context UriInfo uriInfo)
-    {
-        PlayerDto newPlayer = gameService.addPlayer(player);
-        if(newPlayer != null) {
-            UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-            uriBuilder.path(Integer.toString(newPlayer.getId()));
-            return Response.created(uriBuilder.build()).entity(newPlayer).build();
-        }
-        return Response.status(Response.Status.BAD_REQUEST).entity(new Error("CDT-001", "Invalid request. Unknown theme park in request.")) .build();
-    }
-
-    @GET
-    @Path("/games/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getGameById(@PathParam("id") Integer id)
-    {
-        GameDto game = gameService.findGameById(id);
-        if(game == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(game).build();
-    }
-
-    @GET
-    @Path("/games/{id}/players")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlayersByGameId(@PathParam("id") Integer id) {
-        List<PlayerDto> playerDtoList = gameService.findPlayerByGameId(id);
-        if(playerDtoList == null) {
-            return Response.noContent().build();
-        }
-        return Response.ok(playerDtoList).build();
-    }
-
-    @GET
-    @Path("/games/search")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getGameByPlayerName(@QueryParam("name") String name) {
-        List<GameDto> gameDtoList = gameService.findGameByPlayerName(name);
-        if(gameDtoList == null) {
-            return Response.noContent().build();
-        }
-        return Response.ok(gameDtoList).build();
-    }*/
 }

@@ -1,8 +1,6 @@
 package com.codecta.academy.repository.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(schema = "codecta", name = "PLAYER")
