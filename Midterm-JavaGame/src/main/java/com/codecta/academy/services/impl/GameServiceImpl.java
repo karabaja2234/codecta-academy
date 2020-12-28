@@ -106,6 +106,12 @@ public class GameServiceImpl implements GameService {
             return null;
         }
         ModelMapper modelMapper = new ModelMapper();
+        Dungeon currentDungeon = dungeonRepository.findById(monster.getDungeonId());
+        DungeonDto dungeon = modelMapper.map(currentDungeon, DungeonDto.class);
+        Map currentMap = mapRepository.findById(dungeon.getMapId());
+        MapDto map = modelMapper.map(currentMap, MapDto.class);
+        Level currentLevel = levelRepository.findById(map.getLevelId());
+        monster.setDamage(monster.getDamage()*currentLevel.getDifficulty());
         Monster dbMonster = modelMapper.map(monster, Monster.class);
         dbMonster = monsterRepository.add(dbMonster);
         return modelMapper.map(dbMonster,MonsterDto.class);
