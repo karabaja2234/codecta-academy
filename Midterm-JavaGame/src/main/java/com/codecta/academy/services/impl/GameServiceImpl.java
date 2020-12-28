@@ -215,6 +215,107 @@ public class GameServiceImpl implements GameService {
         return monsterDtoList;
     }
 
+    @Override
+    public PlayerDto updatePlayersHealth(Integer id) {
+        Player playerToUpdate = playerRepository.findById(id);
+        if(playerToUpdate != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            PlayerDto player = modelMapper.map(playerToUpdate, PlayerDto.class);
+            if(player.getHealingPotion() != 0) {
+                playerToUpdate.setHealth(player.getHealth() + player.getHealingPotion());
+                playerToUpdate.setStatusMessage("Player healed for " + player.getHealingPotion() + " healing points!");
+                playerToUpdate.setHealingPotion(0);
+                playerToUpdate = playerRepository.save(playerToUpdate);
+                return modelMapper.map(playerToUpdate, PlayerDto.class);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PlayerDto updatePlayersDungeon(Integer id) {
+        Player playerToUpdate = playerRepository.findById(id);
+        if(playerToUpdate != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            PlayerDto player = modelMapper.map(playerToUpdate, PlayerDto.class);
+            Dungeon currentDungeon = dungeonRepository.findById(player.getDungeonId());
+            List<Monster> currentDungeonsMonsters = currentDungeon.getMonsters();
+            Dungeon nextDungeon = dungeonRepository.findById(player.getDungeonId() + 1);
+            if(currentDungeonsMonsters.get(0).getHealth() <= 0) {
+                if(nextDungeon != null) {
+                    playerToUpdate.setDungeon(nextDungeon);
+                    playerToUpdate.setStatusMessage("Player moved to dungeon " + nextDungeon.getId() + "!");
+                    playerToUpdate = playerRepository.save(playerToUpdate);
+                    return modelMapper.map(playerToUpdate, PlayerDto.class);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PlayerDto updatePlayersDamage(Integer id) {
+        Player playerToUpdate = playerRepository.findById(id);
+        if(playerToUpdate != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            PlayerDto player = modelMapper.map(playerToUpdate, PlayerDto.class);
+            if(player.getDamageIncreasePotion() != 0) {
+                playerToUpdate.setDamage(player.getDamage() + player.getDamageIncreasePotion());
+                playerToUpdate.setStatusMessage("Player's damage increased for " + player.getDamageIncreasePotion() + " damaging points!");
+                playerToUpdate.setDamageIncreasePotion(0);
+                playerToUpdate = playerRepository.save(playerToUpdate);
+                return modelMapper.map(playerToUpdate, PlayerDto.class);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PlayerDto collectItems(Integer id) {
+        Player playerToUpdate = playerRepository.findById(id);
+        if(playerToUpdate != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            PlayerDto player = modelMapper.map(playerToUpdate, PlayerDto.class);
+            Dungeon currentDungeon = dungeonRepository.findById(player.getDungeonId());
+            List<Monster> currentDungeonsMonsters = currentDungeon.getMonsters();
+            Monster currentMonster = currentDungeonsMonsters.get(0);
+            if(currentMonster.getHealth() <= 0) {
+                Item monstersItem = itemRepository.findById(currentMonster.getItem().getId());
+                if(monstersItem.getName() == "Healing potion") {
+                    playerToUpdate.setHealingPotion(player.getHealingPotion() + monstersItem.getValue());
+                    playerToUpdate.setStatusMessage("Player collected a healing potion!");
+                    playerToUpdate = playerRepository.save(playerToUpdate);
+                    return modelMapper.map(playerToUpdate, PlayerDto.class);
+                } else if(monstersItem.getName() == "Damage increase potion") {
+                    playerToUpdate.setDamageIncreasePotion(player.getDamageIncreasePotion() + monstersItem.getValue());
+                    playerToUpdate.setStatusMessage("Player collected a damage increase potion!");
+                    playerToUpdate = playerRepository.save(playerToUpdate);
+                    return modelMapper.map(playerToUpdate, PlayerDto.class);
+                } else if(monstersItem.getName() == "Orb of Quarkus") {
+                    playerToUpdate.setHasOrbOfQuarkus(true);
+                    playerToUpdate.setStatusMessage("Congratulations, the Orb of Quarkus is yours!");
+                    playerToUpdate = playerRepository.save(playerToUpdate);
+                    return modelMapper.map(playerToUpdate, PlayerDto.class);
+                }
+            } else {
+                playerToUpdate.setStatusMessage("In order to collect items, you have to kill the monster!");
+                playerToUpdate = playerRepository.save(playerToUpdate);
+                return modelMapper.map(playerToUpdate, PlayerDto.class);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PlayerDto fightMonster(Integer id, PlayerDto player) {
+        return null;
+    }
+
+    @Override
+    public MonsterDto updateMonstersHealth(Integer id, MonsterDto monster) {
+        return null;
+    }
+
     /*
     @Override
     public PlayerDto findPlayerById(Integer id) {

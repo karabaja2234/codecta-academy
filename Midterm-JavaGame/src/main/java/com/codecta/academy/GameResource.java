@@ -276,6 +276,54 @@ public class GameResource {
         return Response.ok(monstersList).build();
     }
 
+    @PUT
+    @Path("/players/{id}/heal")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePlayersHealth(@PathParam("id") Integer id)
+    {
+        PlayerDto updatedPlayer = gameService.updatePlayersHealth(id);
+        if(updatedPlayer == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(updatedPlayer).build();
+    }
+
+    @PUT
+    @Path("/players/{id}/move")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePlayersDungeon(@PathParam("id") Integer id)
+    {
+        PlayerDto updatedPlayer = gameService.updatePlayersDungeon(id);
+        if(updatedPlayer == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(updatedPlayer).build();
+    }
+
+    @PUT
+    @Path("/players/{id}/stronger")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePlayersDamage(@PathParam("id") Integer id)
+    {
+        PlayerDto updatedPlayer = gameService.updatePlayersDamage(id);
+        if(updatedPlayer == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(updatedPlayer).build();
+    }
+
+    @PUT
+    @Path("/players/{id}/collect")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response collectPlayersItems(@PathParam("id") Integer id)
+    {
+        PlayerDto updatedPlayer = gameService.collectItems(id);
+        if(updatedPlayer == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(updatedPlayer).build();
+    }
+
     /*
     @GET
     @Path("/players/{id}")
@@ -288,19 +336,6 @@ public class GameResource {
         }
         return Response.ok(player).build();
     }
-
-    @PUT
-    @Path("/players/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePlayerById(@PathParam("id") Integer id, PlayerDto player)
-    {
-        PlayerDto updatedPlayer = gameService.updatePlayer(id, player);
-        if(updatedPlayer == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(updatedPlayer).build();
-    }
-
 
     @POST
     @Path("/players")

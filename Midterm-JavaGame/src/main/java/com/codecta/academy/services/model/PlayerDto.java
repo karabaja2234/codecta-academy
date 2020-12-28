@@ -5,6 +5,7 @@ public class PlayerDto {
     private Integer health;
     private Integer damage;
     private Integer healingPotion;
+    private Integer damageIncreasePotion;
     private String name;
     private Boolean hasOrbOfQuarkus;
     private Integer dungeonId;
@@ -40,6 +41,14 @@ public class PlayerDto {
 
     public void setHealingPotion(Integer healingPotion) {
         this.healingPotion = healingPotion;
+    }
+
+    public Integer getDamageIncreasePotion() {
+        return damageIncreasePotion;
+    }
+
+    public void setDamageIncreasePotion(Integer damageIncreasePotion) {
+        this.damageIncreasePotion = damageIncreasePotion;
     }
 
     public String getName() {

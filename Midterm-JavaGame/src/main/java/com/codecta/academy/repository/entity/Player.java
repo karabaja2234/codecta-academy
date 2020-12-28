@@ -19,6 +19,7 @@ public class Player extends  ModelObject{
     private Integer health;
     private Integer damage;
     private Integer healingPotion;
+    private Integer damageIncreasePotion;
     private String name;
     private Boolean hasOrbOfQuarkus;
     private String statusMessage;
@@ -78,6 +79,14 @@ public class Player extends  ModelObject{
 
     public void setStatusMessage(String statusMessage) {
         this.statusMessage = statusMessage;
+    }
+
+    public Integer getDamageIncreasePotion() {
+        return damageIncreasePotion;
+    }
+
+    public void setDamageIncreasePotion(Integer damageIncreasePotion) {
+        this.damageIncreasePotion = damageIncreasePotion;
     }
 
     @ManyToOne
