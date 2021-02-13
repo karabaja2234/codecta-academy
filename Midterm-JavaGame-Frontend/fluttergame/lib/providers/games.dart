@@ -27,7 +27,7 @@ class Games with ChangeNotifier {
       });
       
       //print(loadedGames[0].id);
-      //_items = loadedGames;
+      _items = loadedGames;
       notifyListeners();
     } catch (error) {
       throw (error);

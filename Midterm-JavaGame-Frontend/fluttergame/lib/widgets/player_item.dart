@@ -20,13 +20,9 @@ class PlayerItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: Consumer<Player>(
-            builder: (ctx, player, _) => IconButton(
-                  color: Theme.of(context).accentColor,
-                ),
-          ),
           title: Text(
-            player.id.toString(),
+            //player.id.toString(),
+            player.name,
             textAlign: TextAlign.center,
           ),
         ),

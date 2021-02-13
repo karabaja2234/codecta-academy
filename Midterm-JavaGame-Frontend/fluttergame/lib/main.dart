@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttergame/providers/createPlayer.dart';
+import 'package:fluttergame/providers/form.dart';
 import 'package:provider/provider.dart';
 import './screens/games_overview_screen.dart';
 import './screens/game_detail_screen.dart';
@@ -12,6 +14,14 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return new MaterialApp(
+        home: new HomeScreen());
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
@@ -22,14 +32,66 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'The Orb of Quarkus',
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.deepOrange,
-            fontFamily: 'Lato',
-          ),
           //home: GamesOverviewScreen(),
-          home: PlayersOverviewScreen(),
+          //home: PlayersOverviewScreen(),
+          home: Scaffold(
+            body: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("images/dungeonimage4.jpg"),
+                  fit: BoxFit.cover
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 60),
+                  Text("Welcome To",
+                  style: TextStyle(
+                    fontFamily: 'Lobster',
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  )),
+                  SizedBox(height: 20),
+                  Text("The Orb of Quarkus",
+                  style: TextStyle(
+                    fontFamily: 'Lobster',
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    //backgroundColor: Colors.black54,
+                    
+                  )),
+                  SizedBox(height: 20),
+                  ButtonTheme(
+                    minWidth: 150.0,
+                    height: 50.0,
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CreatePlayer()),
+                        );
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: BorderSide(color: Colors.white)
+                      ),
+                      child: Text("Play",
+                      style: TextStyle(
+                        fontFamily: 'Lobster',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      )),
+                    ),
+                  ),
+                ]
+              ),
+            ),
+          ),
           routes: {
             GameDetailScreen.routeName: (ctx) => GameDetailScreen(),
             PlayerDetailScreen.routeName: (ctx) => PlayerDetailScreen(),

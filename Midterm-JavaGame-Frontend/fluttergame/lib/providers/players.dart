@@ -43,4 +43,37 @@ class Players with ChangeNotifier {
       throw (error);
     }
   }
+
+  Future<void> addPlayer(Player player) async {
+    const url = 'http://10.0.2.2:8080/game/newplayer';
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'health': 100,
+          'damage': 10,
+          'name': player.name,
+          'healingPotion': 0,
+          'damageIncreasePotion': 0,
+          'hasOrbOfQuarkus': false,
+          'statusMessage': "",
+          'dungeonId': 1
+        }),
+      );
+      
+      print(response.body);
+      /*
+      final newPlayer = Player(
+        id: response.id,
+
+      );
+
+      _items.add(newPlayer);*/
+      // _items.insert(0, newProduct); // at the start of the list
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
 }
