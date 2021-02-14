@@ -49,11 +49,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/dungeonimage.jpg
-     - images/dungeonimage2.jpg
-     - images/dungeonimage3.jpg
-     - images/dungeonimage4.jpg
-     - images/dungeonimage5.jpg
      - images/dungeonimage6.jpg
      - images/dungeonimage7.jpg
      - images/dungeonimage8.jpg
