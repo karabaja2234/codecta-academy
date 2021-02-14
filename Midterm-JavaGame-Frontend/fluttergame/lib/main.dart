@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 60),
                   Text("Welcome To",
                   style: TextStyle(
-                    fontFamily: 'Lobster',
+                    fontFamily: 'Montserrat',
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white
@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   Text("The Orb of Quarkus",
                   style: TextStyle(
-                    fontFamily: 'Lobster',
+                    fontFamily: 'Montserrat',
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -81,8 +81,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Text("Play",
                       style: TextStyle(
-                        fontFamily: 'Lobster',
-                        fontSize: 30.0,
+                        fontFamily: 'Montserrat',
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white
                       )),

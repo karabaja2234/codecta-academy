@@ -54,6 +54,12 @@ flutter:
      - images/dungeonimage3.jpg
      - images/dungeonimage4.jpg
      - images/dungeonimage5.jpg
+     - images/sword.png
+     - images/healing.png
+     - images/powerup.png
+     - images/potion.png
+     - images/next.png
+     - images/previous.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -66,7 +72,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
