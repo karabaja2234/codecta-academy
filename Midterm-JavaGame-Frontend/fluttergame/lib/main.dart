@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("images/dungeonimage4.jpg"),
+                  image: AssetImage("images/dungeonimage8.jpg"),
                   fit: BoxFit.cover
                 ),
               ),
@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                   Text("Welcome To",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
-                    fontSize: 20.0,
+                    fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white
                   )),
@@ -61,8 +61,7 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    //backgroundColor: Colors.black54,
-                    
+                    backgroundColor: Colors.black54,
                   )),
                   SizedBox(height: 20),
                   ButtonTheme(

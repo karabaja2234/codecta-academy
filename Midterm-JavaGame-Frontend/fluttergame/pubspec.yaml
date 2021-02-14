@@ -54,6 +54,9 @@ flutter:
      - images/dungeonimage3.jpg
      - images/dungeonimage4.jpg
      - images/dungeonimage5.jpg
+     - images/dungeonimage6.jpg
+     - images/dungeonimage7.jpg
+     - images/dungeonimage8.jpg
      - images/sword.png
      - images/healing.png
      - images/powerup.png

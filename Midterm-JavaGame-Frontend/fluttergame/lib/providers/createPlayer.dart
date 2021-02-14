@@ -30,12 +30,12 @@ class _MyAppState extends State<CreatePlayer> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/dungeonimage5.jpg"),
+              image: AssetImage("images/dungeonimage6.jpg"),
               fit: BoxFit.cover
             ),
           ),
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(8.0),
+          //padding: const EdgeInsets.all(8.0),
           child: (_futurePlayer == null) ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -56,7 +56,9 @@ class _MyAppState extends State<CreatePlayer> {
                 RaisedButton(
                   onPressed: () {
                     setState(() {
-                      _futurePlayer = createPlayer(_controller.text);
+                      if(_controller.text != "") {
+                        _futurePlayer = createPlayer(_controller.text);
+                      }
                     });
                   },
                   shape: RoundedRectangleBorder(
@@ -80,10 +82,11 @@ class _MyAppState extends State<CreatePlayer> {
                 return Scaffold(
                   appBar: AppBar(
                     backgroundColor: Colors.black87,
-                    title: Text(snapshot.data.name + "'s health: " + snapshot.data.health.toString(),
+                    title: Text(
+                    snapshot.data.name + " | Health: " + snapshot.data.health.toString() + " | Damage: " + snapshot.data.damage.toString() + " |",
                     style: TextStyle(
                       fontFamily: 'Montserrat',
-                      fontSize: 25.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white
                     )),
@@ -94,172 +97,176 @@ class _MyAppState extends State<CreatePlayer> {
                       //borderRadius: BorderRadius.circular(15.0),
                       image: DecorationImage(
                         image: AssetImage(
-                          'images/dungeonimage4.jpg'),
+                          'images/dungeonimage7.jpg'),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
                     child: ListView(
                       padding: const EdgeInsets.all(8),
                       children: <Widget>[
-                        Container(
-                          height: 450,
-                          //color: Colors.amber[600],
-                          child: GridView.count(
-                            primary: false,
-                            padding: const EdgeInsets.all(20),
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            crossAxisCount: 2,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    _futurePlayer = fight(snapshot.data.id);
-                                  });
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.red,
-                                    border: Border.all(color: Colors.white),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'images/sword.png'),
-                                      //fit: BoxFit.fitWidth,
+                        Visibility(
+                          visible: snapshot.data.health > 0 ? true : false,
+                          child: Container(
+                            height: 450,
+                            child: GridView.count(
+                              primary: false,
+                              padding: const EdgeInsets.all(20),
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              crossAxisCount: 2,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      _futurePlayer = fight(snapshot.data.id);
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.red,
+                                      border: Border.all(color: Colors.white),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'images/sword.png'),
+                                        //fit: BoxFit.fitWidth,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    _futurePlayer = heal(snapshot.data.id);
-                                  });
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.lightGreen,
-                                    border: Border.all(color: Colors.white),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'images/healing.png'),
-                                      //fit: BoxFit.fitWidth,
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      _futurePlayer = heal(snapshot.data.id);
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.lightGreen,
+                                      border: Border.all(color: Colors.white),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'images/healing.png'),
+                                        //fit: BoxFit.fitWidth,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    _futurePlayer = getStronger(snapshot.data.id);
-                                  });
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.teal[900],
-                                    border: Border.all(color: Colors.white),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'images/powerup.png'),
-                                      //fit: BoxFit.fitWidth,
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      _futurePlayer = getStronger(snapshot.data.id);
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.teal[900],
+                                      border: Border.all(color: Colors.white),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'images/powerup.png'),
+                                        //fit: BoxFit.fitWidth,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    _futurePlayer = collectItems(snapshot.data.id);
-                                  });
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.pink[900],
-                                    border: Border.all(color: Colors.white),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'images/potion.png'),
-                                      //fit: BoxFit.fitWidth,
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      _futurePlayer = collectItems(snapshot.data.id);
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.pink[900],
+                                      border: Border.all(color: Colors.white),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'images/potion.png'),
+                                        //fit: BoxFit.fitWidth,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
+                              ],
+                            )
+                          ),
                         ),
                         Container(
-                          height: 150,
-                          //color: Colors.amber[500],
+                          height: 100,
+                          margin: EdgeInsets.only(top: snapshot.data.health > 0 ? 80.0 : 600.0),
                           child: Text(snapshot.data.statusMessage,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Montserrat',
-                            fontSize: 30.0,
+                            fontSize: snapshot.data.health > 0 ? 25.0 : 50.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white
                           )),
                         ),
-                        Container(
-                          height: 80,
-                          //color: Colors.amber[100],
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      _futurePlayer = previousRoom(snapshot.data.id);
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          'images/previous.png'),
-                                        //fit: BoxFit.fitWidth,
+                        Visibility(
+                          visible: snapshot.data.health > 0 ? true : false,
+                          child: Container(
+                            height: 70,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _futurePlayer = previousRoom(snapshot.data.id);
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                            'images/previous.png'),
+                                          //fit: BoxFit.fitWidth,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Text(''),
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      _futurePlayer = nextRoom(snapshot.data.id);
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          'images/next.png'),
-                                        //fit: BoxFit.fitWidth,
+                                Expanded(
+                                  child: Text(''),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _futurePlayer = nextRoom(snapshot.data.id);
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                            'images/next.png'),
+                                          //fit: BoxFit.fitWidth,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          )
+                                )
+                              ],
+                            )
+                          ),
                         ),
                       ],
                     )

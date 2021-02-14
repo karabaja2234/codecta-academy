@@ -61,7 +61,7 @@ Future<Player> createPlayer(String name) async {
   if (response.statusCode == 201) {
     return Player.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to create a player.');
   }
 }
 
@@ -73,7 +73,7 @@ Future<Player> fight(int playerId) async {
   if (response.statusCode == 200) {
     return Player.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to start a fight.');
   }
 }
 
@@ -85,7 +85,7 @@ Future<Player> heal(int playerId) async {
   if (response.statusCode == 200) {
     return Player.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to heal the player.');
   }
 }
 
@@ -97,7 +97,7 @@ Future<Player> getStronger(int playerId) async {
   if (response.statusCode == 200) {
     return Player.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to make the player stronger.');
   }
 }
 
@@ -143,6 +143,6 @@ Future<Player> collectItems(int playerId) async {
   if (response.statusCode == 200) {
     return Player.fromJson(jsonDecode(response.body));
   } else {
-    //throw Exception('Failed to create album.');
+    throw Exception('Failed to collect the items.');
   }
 }
