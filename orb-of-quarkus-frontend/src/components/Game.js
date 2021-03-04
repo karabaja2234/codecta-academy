@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
 import Swal from "sweetalert2";
+import Home from './Home'
+
 import Player from '../assets/images/player.gif'
 import Fight from '../assets/images/fight.gif'
 import Heal from '../assets/images/heal.gif'
@@ -8,15 +11,11 @@ import Gift from '../assets/images/gift.gif'
 import Monster1 from '../assets/images/monster1.gif'
 import Monster2 from '../assets/images/monster2.gif'
 import Monster3 from '../assets/images/monster3.gif'
-import {Button} from 'react-bootstrap';
-import { BrowserRouter as Redirect } from 'react-router-dom'
 import dungeonImage2 from '../assets/images/dungeonbackground2.jpg'
-import dungeonImage3 from '../assets/images/dungeonbackground3.jpg'
 
 const axios = require('axios')
 const monsters = [Monster1, Monster2, Monster3]; //hardcoded
 
-//<p className="text-light">{this.state.player != null ? this.state.player.name : ""}</p>
 const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -33,6 +32,7 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            player: props.player,
             redirect: false,
             showMonster: false
         };
@@ -46,24 +46,13 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
-        this.monsterIsAlive();
         if(this.props.player != null) {
-            const player = { 
-                name: this.props.player.name,
-                health: this.props.player.health,
-                damage: this.props.player.damage,
-                healingPotion: this.props.player.healingPotion,
-                damageIncreasePotion: this.props.player.damageIncreasePotion,
-                hasOrbOfQuarkus: this.props.player.hasOrbOfQuarkus,
-                statusMessage: this.props.player.statusMessage,
-                dungeonId: this.props.player.dungeonId 
-            };
-    
-            axios.post('http://localhost:8080/game/newplayer', player)
+            axios.post('http://localhost:8080/game/newplayer', this.state.player)
             .then(response => this.setState({player: response.data}))
             .catch(error => {
                 console.log(error);
             });
+            this.monsterIsAlive();
         }
     }
 
@@ -228,6 +217,7 @@ export default class Game extends Component {
                 axios.put(`http://localhost:8080/game/players/${this.state.player != null ? this.state.player.id : null}/goback`, this.state.player)
                 .then(response => {
                     this.setState({player: response.data})
+                    this.monsterIsAlive();
                     Toast.fire({
                         icon: "success",
                         title: response.data.statusMessage,
@@ -286,56 +276,71 @@ export default class Game extends Component {
 
     render() {
         return (
-            <div className="Game container d-flex align-items-start justify-content-center" style={{ backgroundImage: `url(${this.state.player != null && this.state.showMonster ? monsters[this.state.player.dungeonId -1 ] : null})`, backgroundPosition: 'bottom', backgroundRepeat: 'no-repeat'}}>
-                { this.state.redirect ? (<Redirect push to="/"/>) : null }
-                <div className="d-flex container justify-content-center align-items-center flex-wrap">
-                    <div className="container p-5 bg-secondary rounded border border-light" style={{backgroundImage: `url(${Player}), url(${dungeonImage2})`, backgroundPosition: 'top, center', backgroundRepeat: 'no-repeat'}}>
-                        <h1 className="text-light">{this.state.player != null ? this.state.player.name : "Undefined player's name"}</h1>
-                        <p className="text-light">Players health: {this.state.player != null ? this.state.player.health : "Undefined player's health"}</p>
-                        <p className="text-light">Players damage: {this.state.player != null ? this.state.player.damage : "Undefined player's damage"}</p>
-                    </div>
-                    <div style={{maxWidth: '220px'}} id="card-div" onClick={this.fight}>
-                        <div id="card-div-img-box" style={{ backgroundImage: `url(${Fight})`}}></div>
-                        <div id="card-div-naziv-cijena">
-                            <div id="card-naziv">
-                                <p className="mt-2 text-center">FIGHT</p>
+            <Router>
+                <Switch>
+                    <Route exact path="/game">
+                        <div className="Game container d-flex align-items-start justify-content-center" style={{ backgroundImage: `url(${this.state.player != null && this.state.showMonster ? monsters[this.state.player.dungeonId -1 ] : null})`, backgroundPosition: 'bottom', backgroundRepeat: 'no-repeat'}}>
+                            { this.state.redirect ? (<Redirect push to="/"/>) : null }
+                            <div className="d-flex container justify-content-center align-items-center flex-wrap">
+                                <div className="container mt-5 p-5 bg-secondary rounded border border-light" style={{backgroundImage: `url(${Player}), url(${dungeonImage2})`, backgroundPosition: 'top right, center', backgroundRepeat: 'no-repeat'}}>
+                                    <h1 className="text-info">{this.state.player != null ? this.state.player.name : "Undefined player's name"}</h1>
+                                    <p className="text-light mt-4">
+                                        Player's health: <font className="text-info"> {this.state.player != null ? this.state.player.health : "Undefined player's health"} </font> | 
+                                        Player's damage: <font className="text-info"> {this.state.player != null ? this.state.player.damage : "Undefined player's damage"} </font>
+                                    </p>
+                                    <p className="text-light">
+                                        Healing potion: <font className="text-info"> {this.state.player != null ? this.state.player.healingPotion : "Undefined player's dungeon"} </font> | 
+                                        Damage increasing potion: <font className="text-info"> {this.state.player != null ? this.state.player.damageIncreasePotion : "Undefined player's damage"} </font>
+                                    </p>
+                                </div>
+                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.fight}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Fight})`}}></div>
+                                    <div id="card-div-description">
+                                        <div id="card-text">
+                                            <p className="mt-2 text-center">FIGHT</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.heal}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Heal})`}}></div>
+                                    <div id="card-div-description">
+                                        <div id="card-text">
+                                            <p className="mt-2 text-center">HEAL</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.increaseDamage}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Potion})`}}></div>
+                                    <div id="card-div-description">
+                                        <div id="card-text">
+                                            <p className="mt-2 text-center">STRONGER</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.collect}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Gift})`}}></div>
+                                    <div id="card-div-description">
+                                        <div id="card-text">
+                                            <p className="mt-2 text-center">COLLECT</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="container d-flex justify-content-between flex-wrap pl-4 pr-4" style={{position: 'absolute', bottom: 50}}>
+                                <button className="btn btn-lg btn-dark btn-outline-light" onClick={this.previousDungeon}>
+                                    Previous dungeon
+                                </button>
+                                <button className="btn btn-lg btn-dark btn-outline-light" onClick={this.nextDungeon}>
+                                    Next dungeon
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div style={{maxWidth: '220px'}} id="card-div" onClick={this.heal}>
-                        <div id="card-div-img-box" style={{ backgroundImage: `url(${Heal})`}}></div>
-                        <div id="card-div-naziv-cijena">
-                            <div id="card-naziv">
-                                <p className="mt-2 text-center">HEAL</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{maxWidth: '220px'}} id="card-div" onClick={this.increaseDamage}>
-                        <div id="card-div-img-box" style={{ backgroundImage: `url(${Potion})`}}></div>
-                        <div id="card-div-naziv-cijena">
-                            <div id="card-naziv">
-                                <p className="mt-2 text-center">STRONGER</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{maxWidth: '220px'}} id="card-div" onClick={this.collect}>
-                        <div id="card-div-img-box" style={{ backgroundImage: `url(${Gift})`}}></div>
-                        <div id="card-div-naziv-cijena">
-                            <div id="card-naziv">
-                                <p className="mt-2 text-center">COLLECT</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="container d-flex justify-content-between flex-wrap pl-4 pr-4" style={{position: 'absolute', bottom: 50}}>
-                    <button className="btn btn-lg btn-dark btn-outline-light" onClick={this.previousDungeon}>
-                        Previous dungeon
-                    </button>
-                    <button className="btn btn-lg btn-dark btn-outline-light" onClick={this.nextDungeon}>
-                        Next dungeon
-                    </button>
-                </div>
-            </div>
+                    </Route>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                </Switch>
+            </Router>
         )
     }
 }
