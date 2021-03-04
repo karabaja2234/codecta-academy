@@ -12,6 +12,7 @@ code {
 
 .Home, .Register, .Info, .Game {
   height: 100vh;
+  font-family: 'RocknRoll One';
 }
 
 #card-div {
