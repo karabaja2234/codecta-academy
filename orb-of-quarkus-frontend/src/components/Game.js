@@ -20,7 +20,7 @@ const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000,
+    timer: 1500,
     timerProgressBar: true,
     onOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -279,11 +279,11 @@ export default class Game extends Component {
             <Router>
                 <Switch>
                     <Route exact path="/game">
-                        <div className="Game container d-flex align-items-start justify-content-center" style={{ backgroundImage: `url(${this.state.player != null && this.state.showMonster ? monsters[this.state.player.dungeonId -1 ] : null})`, backgroundPosition: 'bottom', backgroundRepeat: 'no-repeat'}}>
+                        <div className="Game container d-flex align-items-start justify-content-center pt-5" style={{ backgroundImage: `url(${this.state.player != null && this.state.showMonster ? monsters[this.state.player.dungeonId -1 ] : null})`, backgroundPosition: 'bottom', backgroundRepeat: 'no-repeat'}}>
                             { this.state.redirect ? (<Redirect push to="/"/>) : null }
-                            <div className="d-flex container justify-content-center align-items-center flex-wrap">
-                                <div className="container mt-5 p-5 bg-secondary rounded border border-light" style={{backgroundImage: `url(${Player}), url(${dungeonImage2})`, backgroundPosition: 'top right, center', backgroundRepeat: 'no-repeat'}}>
-                                    <h1 className="text-info">{this.state.player != null ? this.state.player.name : "Undefined player's name"}</h1>
+                            <div className="d-flex container justify-content-center align-items-center flex-wrap mt-5">
+                                <div className="container w-100 p-5 bg-secondary rounded border border-light" style={{backgroundImage: `url(${Player}), url(${dungeonImage2})`, backgroundPosition: 'top right, center', backgroundRepeat: 'no-repeat'}}>
+                                    <p className="playersName text-info">{this.state.player != null ? this.state.player.name : "Undefined player's name"}</p>
                                     <p className="text-light mt-4">
                                         Player's health: <font className="text-info"> {this.state.player != null ? this.state.player.health : "Undefined player's health"} </font> | 
                                         Player's damage: <font className="text-info"> {this.state.player != null ? this.state.player.damage : "Undefined player's damage"} </font>
@@ -293,44 +293,44 @@ export default class Game extends Component {
                                         Damage increasing potion: <font className="text-info"> {this.state.player != null ? this.state.player.damageIncreasePotion : "Undefined player's damage"} </font>
                                     </p>
                                 </div>
-                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.fight}>
-                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Fight})`}}></div>
+                                <div id="card-div" className="mt-5" onClick={this.fight}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Fight})`, backgroundPosition: 'center'}}></div>
                                     <div id="card-div-description">
                                         <div id="card-text">
-                                            <p className="mt-2 text-center">FIGHT</p>
+                                            <p className="card-text mt-2 text-center">FIGHT</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.heal}>
-                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Heal})`}}></div>
+                                <div id="card-div" className="mt-5" onClick={this.heal}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Heal})`, backgroundPosition: 'center'}}></div>
                                     <div id="card-div-description">
                                         <div id="card-text">
-                                            <p className="mt-2 text-center">HEAL</p>
+                                            <p className="card-text mt-2 text-center">HEAL</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.increaseDamage}>
-                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Potion})`}}></div>
+                                <div id="card-div" className="mt-5" onClick={this.increaseDamage}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Potion})`, backgroundPosition: 'center'}}></div>
                                     <div id="card-div-description">
                                         <div id="card-text">
-                                            <p className="mt-2 text-center">STRONGER</p>
+                                            <p className="card-text mt-2 text-center">STRONGER</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{maxWidth: '220px'}} id="card-div" onClick={this.collect}>
-                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Gift})`}}></div>
+                                <div id="card-div" className="mt-5" onClick={this.collect}>
+                                    <div id="card-div-img-box" style={{ backgroundImage: `url(${Gift})`, backgroundPosition: 'center'}}></div>
                                     <div id="card-div-description">
                                         <div id="card-text">
-                                            <p className="mt-2 text-center">COLLECT</p>
+                                            <p className="card-text mt-2 text-center">COLLECT</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="container d-flex justify-content-between flex-wrap pl-4 pr-4" style={{position: 'absolute', bottom: 50}}>
-                                <button className="btn btn-lg btn-dark btn-outline-light" onClick={this.previousDungeon}>
+                            <div className="dungeonButtons container d-flex justify-content-between flex-wrap">
+                                <button className="btn btn-sm btn-dark btn-outline-light" onClick={this.previousDungeon}>
                                     Previous dungeon
                                 </button>
-                                <button className="btn btn-lg btn-dark btn-outline-light" onClick={this.nextDungeon}>
+                                <button className="btn btn-sm btn-dark btn-outline-light" onClick={this.nextDungeon}>
                                     Next dungeon
                                 </button>
                             </div>

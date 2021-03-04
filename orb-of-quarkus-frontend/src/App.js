@@ -8,7 +8,7 @@ import dungeonImage from './assets/images/dungeonbackground.jpg'
 function App() {
   return (
     <Router>
-      <div className="App" style={{ backgroundImage: `url(${dungeonImage})`, padding: '15px'}}>
+      <div className="App" style={{ backgroundImage: `url(${dungeonImage})`, backgroundPosition: 'center', padding: '15px'}}>
         <Route exact path="/">
           <Home />
         </Route>

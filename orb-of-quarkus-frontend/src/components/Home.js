@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 export default function Home() {
     return (
         <Router>
-            <div className="Home container d-flex align-items-center flex-column justify-content-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)'}}>
+            <div className="Home container d-flex align-items-center flex-column justify-content-center">
                 <Switch>
                     <Route exact path="/">
                         <img src={fire} alt="Logo" width="80px" height="140px"/>;
@@ -17,7 +17,7 @@ export default function Home() {
                                 Start playing!
                             </button>
                         </Link>
-                        <Link to="/info">
+                        <Link to="/info" style={{textDecoration: 'none'}}>
                             <p className="mt-3 text-light" style={{ fontSize: '20px', fontFamily: 'RocknRoll One'}}>How to play?</p>
                         </Link>
                     </Route>
