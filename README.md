@@ -23,7 +23,9 @@ In case you want to test and play the mentioned game, follow the instructions be
 - First you need to bring up the docker container by running the command below:
 
 ```
-docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 --name quarkus_test -e POSTGRES_USER=quarkus_test -e POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:10.5
+docker run --ulimit memlock=-1:-1 -it --rm=true --memory-swappiness=0 
+--name quarkus_test -e POSTGRES_USER=quarkus_test -e 
+POSTGRES_PASSWORD=quarkus_test -e POSTGRES_DB=quarkus_test -p 5432:5432 postgres:10.5
 ```
 
 - After that, go into the backend folder of the game and run the command below:
@@ -35,7 +37,11 @@ mvn compile quarkus:dev
 - Previously mentioned steps will bring up the backend and create the "codecta" schema in the PostreSQL database
 - Next step is to add the data into the database. You can do this step with a Postman/Insomnia, by sending the api requests that I will list below:
 
-:heavy_check_mark: 
+:heavy_check_mark: Create the game by sending a POST request to: http://localhost:8080/game/newgame (body: {})
+
+:heavy_check_mark: Create the level by sending a POST request to: http://localhost:8080/game/newlevel (body: {
+    "difficulty": 1
+})
 
 ## Homework 1
 
