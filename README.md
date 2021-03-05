@@ -48,16 +48,49 @@ mvn compile quarkus:dev
     "levelId": 1
 })
 
-:heavy_check_mark: Create a dungeon by sending a POST request to http://localhost:8080/game/newdungeon (body: {
+:heavy_check_mark: Create a dungeon by sending a POST request to: http://localhost:8080/game/newdungeon (body: {
     "mapId": 1
 }) - You should send this same request 3 times, so the map has 3 dungeons that you can test the game with
 
-:heavy_check_mark: Create a healing potion by sending a POST request to http://localhost:8080/game/newitem (body: {
+:heavy_check_mark: Create a healing potion by sending a POST request to: http://localhost:8080/game/newitem (body: {
     "name": "Healing potion",
     "value": 50
 })
 
-:heavy_check_mark: Create a damage increasing potion by sending a POST request to http://localhost:8080/game/newitem (body: )
+:heavy_check_mark: Create a damage increasing potion by sending a POST request to: http://localhost:8080/game/newitem (body: {
+    "name": "Damage increase potion",
+    "value": 50
+})
+
+:heavy_check_mark: Create a new Orb of Quarkus item by sending a POST request to: http://localhost:8080/game/newitem (body: {
+    "name": "Orb of Quarkus",
+    "value": 0
+})
+
+:heavy_check_mark: Create multiple monsters by sending multiple POST requests to the same api: http://localhost:8080/game/newmonster (first monster's body: {
+    "health": 20,
+    "damage": 5,
+    "name": "Monster 1",
+    "dungeonId": 1,
+    "itemId": 1
+}, second monster's body: {
+    "health": 30,
+    "damage": 5,
+    "name": "Monster 2",
+    "dungeonId": 2,
+    "itemId": 2
+}, third monster's body: {
+    "health": 50,
+    "damage": 15,
+    "name": "Final Boss",
+    "dungeonId": 3,
+    "itemId": 3
+})
+
+:heavy_check_mark: Player is always created from the frontend
+
+- After sending all the provided requests, your database should be filled with all the necessary data to play the game
+- Next step: Go into the "orb-of-quarkus-frontend" folder and run "npm start" in your terminal. This should start the react app in your browser and you're ready to go!
 
 ## Homework 1
 
