@@ -43,6 +43,22 @@ mvn compile quarkus:dev
     "difficulty": 1
 })
 
+:heavy_check_mark: Create the map by sending a POST request to: http://localhost:8080/game/newmap (body: {
+    "gameId": 1,
+    "levelId": 1
+})
+
+:heavy_check_mark: Create a dungeon by sending a POST request to http://localhost:8080/game/newdungeon (body: {
+    "mapId": 1
+}) - You should send this same request 3 times, so the map has 3 dungeons that you can test the game with
+
+:heavy_check_mark: Create a healing potion by sending a POST request to http://localhost:8080/game/newitem (body: {
+    "name": "Healing potion",
+    "value": 50
+})
+
+:heavy_check_mark: Create a damage increasing potion by sending a POST request to http://localhost:8080/game/newitem (body: )
+
 ## Homework 1
 
 A simple java console application which implements the following:
