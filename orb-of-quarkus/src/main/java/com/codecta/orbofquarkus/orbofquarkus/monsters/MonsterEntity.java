@@ -1,20 +1,20 @@
-package com.codecta.orbofquarkus.orbofquarkus.players;
+package com.codecta.orbofquarkus.orbofquarkus.monsters;
 
 import com.codecta.orbofquarkus.orbofquarkus.dungeons.DungeonEntity;
+import com.codecta.orbofquarkus.orbofquarkus.items.ItemEntity;
 import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
+@Data
 @Table(
-        name = "players",
+        name = "monsters",
         indexes = {
                 @Index(name = "id_index", columnList = "id")
         }
 )
-public class PlayerEntity extends PlayerAutoMapped {
-
+public class MonsterEntity extends MonsterAutoMapped{
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -26,20 +26,11 @@ public class PlayerEntity extends PlayerAutoMapped {
     @Column(name = "damage")
     private Integer damage;
 
-    @Column(name = "healing_potion")
-    private Integer healingPotion;
-
-    @Column(name = "damage_increase_potion")
-    private Integer damageIncreasePotion;
-
     @Column(name = "name")
     private String name;
 
-    @Column(name = "has_orb_of_quarkus")
-    private Boolean hasOrbOfQuarkus;
-
-    @Column(name = "status_message")
-    private String statusMessage;
+    @ManyToOne
+    private ItemEntity item;
 
     @ManyToOne
     private DungeonEntity dungeon;
