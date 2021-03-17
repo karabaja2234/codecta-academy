@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(
-        name = "players",
+        name = "PLAYER",
         indexes = {
                 @Index(name = "player_id_index", columnList = "id")
         }
@@ -41,7 +41,7 @@ public class PlayerEntity extends PlayerAutoMapped {
     @Column(name = "status_message")
     private String statusMessage;
 
-    @ManyToOne
-    @JoinColumn(name = "dungeon_id")
+    @ManyToOne(fetch = FetchType.LAZY,optional=false)
+    @JoinColumn(name = "dungeon_id", nullable=false)
     private DungeonEntity dungeon;
 }

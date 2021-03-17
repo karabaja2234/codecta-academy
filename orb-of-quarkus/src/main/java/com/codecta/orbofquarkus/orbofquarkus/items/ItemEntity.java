@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(
-        name = "items",
+        name = "ITEM",
         indexes = {
                 @Index(name = "item_id_index", columnList = "id")
         }
@@ -27,6 +27,6 @@ public class ItemEntity extends ItemAutoMapped {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<MonsterEntity> monsters;
 }

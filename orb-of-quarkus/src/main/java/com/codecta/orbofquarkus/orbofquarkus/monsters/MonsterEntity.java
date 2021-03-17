@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(
-        name = "monsters",
+        name = "MONSTER",
         indexes = {
                 @Index(name = "monster_id_index", columnList = "id")
         }
@@ -29,11 +29,11 @@ public class MonsterEntity extends MonsterAutoMapped{
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id")
+    @ManyToOne(fetch = FetchType.LAZY,optional=false)
+    @JoinColumn(name = "item_id", nullable=false)
     private ItemEntity item;
 
-    @ManyToOne
-    @JoinColumn(name = "dungeon_id")
+    @ManyToOne(fetch = FetchType.LAZY,optional=false)
+    @JoinColumn(name = "dungeon_id", nullable=false)
     private DungeonEntity dungeon;
 }

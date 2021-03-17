@@ -2,24 +2,23 @@ package com.codecta.orbofquarkus.orbofquarkus.players;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("players")
+@RequestMapping("game")
 public class PlayerController {
 
     private PlayerService playerService;
     private PlayerMapper playerMapper;
 
-    @GetMapping
+    @GetMapping("/players")
     private List<PlayerDto> findAllPlayers() {
         return playerMapper.toDtoList(playerService.findAllPlayers());
     }
 
-    @PostMapping
-    private PlayerDto createUser(@RequestBody PlayerDto dto) {
+    @PostMapping("/newplayer")
+    private PlayerDto createPlayer(@RequestBody PlayerDto dto) {
         return playerMapper.toDto(playerService.createPlayer(playerMapper.toEntity(dto)));
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(
-        name = "maps",
+        name = "MAP",
         indexes = {
                 @Index(name = "map_id_index", columnList = "id")
         }
@@ -22,14 +22,14 @@ public class MapEntity extends MapAutoMapped {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToMany(mappedBy = "map")
+    @OneToMany(mappedBy = "map", cascade = CascadeType.ALL)
     private List<DungeonEntity> dungeons;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id")
+    @ManyToOne(fetch = FetchType.LAZY,optional=false)
+    @JoinColumn(name = "game_id", nullable=false)
     private GameEntity game;
 
-    @ManyToOne
-    @JoinColumn(name = "level_id")
+    @ManyToOne(fetch = FetchType.LAZY,optional=false)
+    @JoinColumn(name = "level_id", nullable=false)
     private LevelEntity level;
 }

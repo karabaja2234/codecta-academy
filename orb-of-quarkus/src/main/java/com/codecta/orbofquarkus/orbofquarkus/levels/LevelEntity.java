@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(
-        name = "levels",
+        name = "LEVEL",
         indexes = {
                 @Index(name = "level_id_index", columnList = "id")
         }
@@ -23,6 +23,6 @@ public class LevelEntity extends LevelAutoMapped {
     @Column(name = "difficulty")
     private Integer difficulty;
 
-    @OneToMany(mappedBy = "level")
+    @OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
     private List<MapEntity> maps;
 }
