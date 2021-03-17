@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(
         name = "monsters",
         indexes = {
-                @Index(name = "id_index", columnList = "id")
+                @Index(name = "monster_id_index", columnList = "id")
         }
 )
 public class MonsterEntity extends MonsterAutoMapped{
@@ -30,8 +30,10 @@ public class MonsterEntity extends MonsterAutoMapped{
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "item_id")
     private ItemEntity item;
 
     @ManyToOne
+    @JoinColumn(name = "dungeon_id")
     private DungeonEntity dungeon;
 }

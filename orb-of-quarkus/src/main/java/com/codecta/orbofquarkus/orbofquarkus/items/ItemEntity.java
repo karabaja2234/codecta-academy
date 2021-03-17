@@ -1,5 +1,6 @@
 package com.codecta.orbofquarkus.orbofquarkus.items;
 
+import com.codecta.orbofquarkus.orbofquarkus.maps.MapEntity;
 import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterEntity;
 import lombok.Data;
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Table(
         name = "items",
         indexes = {
-                @Index(name = "id_index", columnList = "id")
+                @Index(name = "item_id_index", columnList = "id")
         }
 )
 public class ItemEntity extends ItemAutoMapped {
@@ -26,6 +27,6 @@ public class ItemEntity extends ItemAutoMapped {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "item",fetch= FetchType.LAZY)
-    private List<MonsterEntity> monsters = new ArrayList<>();
+    @OneToMany(mappedBy = "item")
+    private List<MonsterEntity> monsters;
 }

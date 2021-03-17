@@ -12,4 +12,5 @@ public class PlayerAutoMapped {
     private String name;
     private Boolean hasOrbOfQuarkus;
     private String statusMessage;
+    private Integer dungeonId;
 }

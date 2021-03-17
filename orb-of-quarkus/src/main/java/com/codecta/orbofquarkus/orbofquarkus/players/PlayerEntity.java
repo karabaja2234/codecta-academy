@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(
         name = "players",
         indexes = {
-                @Index(name = "id_index", columnList = "id")
+                @Index(name = "player_id_index", columnList = "id")
         }
 )
 public class PlayerEntity extends PlayerAutoMapped {
@@ -42,5 +42,6 @@ public class PlayerEntity extends PlayerAutoMapped {
     private String statusMessage;
 
     @ManyToOne
+    @JoinColumn(name = "dungeon_id")
     private DungeonEntity dungeon;
 }

@@ -4,7 +4,6 @@ import com.codecta.orbofquarkus.orbofquarkus.maps.MapEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,10 +11,10 @@ import java.util.List;
 @Table(
         name = "levels",
         indexes = {
-                @Index(name = "id_index", columnList = "id")
+                @Index(name = "level_id_index", columnList = "id")
         }
 )
-public class LevelEntity {
+public class LevelEntity extends LevelAutoMapped {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -24,6 +23,6 @@ public class LevelEntity {
     @Column(name = "difficulty")
     private Integer difficulty;
 
-    @OneToMany(mappedBy = "level",fetch= FetchType.LAZY)
-    private List<MapEntity> maps = new ArrayList<>();
+    @OneToMany(mappedBy = "level")
+    private List<MapEntity> maps;
 }
