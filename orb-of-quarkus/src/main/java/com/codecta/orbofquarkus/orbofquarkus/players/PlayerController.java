@@ -45,7 +45,7 @@ public class PlayerController {
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Player's health successfully updated!", HttpStatus.OK);
+        return new ResponseEntity<>("Player healed successfully!", HttpStatus.OK);
     }
 
     @PutMapping("/players/{id}/move")
@@ -64,5 +64,32 @@ public class PlayerController {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Player moved to the previous dungeon!", HttpStatus.OK);
+    }
+
+    @PutMapping("/players/{id}/stronger")
+    public ResponseEntity<String> updatePlayersDamage(@PathVariable Integer id) {
+        PlayerDto updatedPlayer = playerService.updatePlayersDamage(id);
+        if(updatedPlayer == null) {
+            return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Player's damage successfully increased!", HttpStatus.OK);
+    }
+
+    @PutMapping("/players/{id}/collect")
+    public ResponseEntity<String> collectPlayersItems(@PathVariable Integer id) {
+        PlayerDto updatedPlayer = playerService.collectItems(id);
+        if(updatedPlayer == null) {
+            return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Player successfully collected an item from the current dungeon!", HttpStatus.OK);
+    }
+
+    @PutMapping("/players/{id}/fight")
+    public ResponseEntity<String> fightMonster(@PathVariable Integer id) {
+        PlayerDto updatedPlayer = playerService.fightMonster(id);
+        if(updatedPlayer == null) {
+            return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Player fought the monster from the current dungeon!", HttpStatus.OK);
     }
 }
