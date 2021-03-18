@@ -1,13 +1,10 @@
 package com.codecta.orbofquarkus.orbofquarkus.players;
 
-import com.codecta.orbofquarkus.orbofquarkus.maps.MapDto;
-import com.codecta.orbofquarkus.orbofquarkus.maps.MapEntity;
-import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterDto;
-import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterEntity;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +37,32 @@ public class PlayerController {
         PlayerEntity dbPlayer = modelMapper.map(player, PlayerEntity.class);
         dbPlayer = playerRepository.save(dbPlayer);
         return modelMapper.map(dbPlayer, PlayerDto.class);
+    }
+
+    @PutMapping("/players/{id}/heal")
+    public ResponseEntity<String> updatePlayersHealth(@PathVariable Integer id) {
+        PlayerDto updatedPlayer = playerService.updatePlayersHealth(id);
+        if(updatedPlayer == null) {
+            return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Player's health successfully updated!", HttpStatus.OK);
+    }
+
+    @PutMapping("/players/{id}/move")
+    public ResponseEntity<String> moveToNextDungeon(@PathVariable Integer id) {
+        PlayerDto updatedPlayer = playerService.nextDungeon(id);
+        if(updatedPlayer == null) {
+            return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Player moved to the next dungeon!", HttpStatus.OK);
+    }
+
+    @PutMapping("/players/{id}/goback")
+    public ResponseEntity<String> goBackToPreviousDungeon(@PathVariable Integer id) {
+        PlayerDto updatedPlayer = playerService.goBack(id);
+        if(updatedPlayer == null) {
+            return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Player moved to the previous dungeon!", HttpStatus.OK);
     }
 }
