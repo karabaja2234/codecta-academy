@@ -15,7 +15,6 @@ public class PlayerController {
 
     private PlayerRepository playerRepository;
     private PlayerService playerService;
-    private PlayerMapper playerMapper;
 
     @GetMapping("/players")
     private List<PlayerDto> findAllPlayers() {
@@ -32,11 +31,13 @@ public class PlayerController {
     }
 
     @PostMapping("/newplayer")
-    private PlayerDto createPlayer(@RequestBody PlayerDto player) {
-        ModelMapper modelMapper = new ModelMapper();
-        PlayerEntity dbPlayer = modelMapper.map(player, PlayerEntity.class);
-        dbPlayer = playerRepository.save(dbPlayer);
-        return modelMapper.map(dbPlayer, PlayerDto.class);
+    public ResponseEntity<String> createPlayer(@RequestBody PlayerDto player)
+    {
+        PlayerDto newPlayer = playerService.createPlayer(player);
+        if(newPlayer != null) {
+            return new ResponseEntity<>("New player added!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/players/{id}/heal")

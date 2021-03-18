@@ -1,6 +1,7 @@
 package com.codecta.orbofquarkus.orbofquarkus.levels;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +11,10 @@ public class LevelService {
     @Autowired
     private LevelRepository levelRepository;
 
-    public Iterable<LevelEntity> findAllLevels() {
-        return levelRepository.findAll();
-    }
-
-    public LevelEntity createLevel(LevelEntity entity) {
-        return levelRepository.save(entity);
+    public LevelDto createLevel(LevelDto level) {
+        ModelMapper modelMapper = new ModelMapper();
+        LevelEntity dbLevel = modelMapper.map(level, LevelEntity.class);
+        dbLevel = levelRepository.save(dbLevel);
+        return modelMapper.map(dbLevel,LevelDto.class);
     }
 }

@@ -1,9 +1,7 @@
 package com.codecta.orbofquarkus.orbofquarkus.games;
 
 import com.codecta.orbofquarkus.orbofquarkus.maps.MapEntity;
-import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterEntity;
 import lombok.Data;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

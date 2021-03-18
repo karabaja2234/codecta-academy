@@ -1,13 +1,10 @@
 package com.codecta.orbofquarkus.orbofquarkus.levels;
 
-import com.codecta.orbofquarkus.orbofquarkus.maps.MapDto;
-import com.codecta.orbofquarkus.orbofquarkus.maps.MapEntity;
-import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterDto;
-import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterEntity;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +14,6 @@ import java.util.List;
 public class LevelController {
     private LevelRepository levelRepository;
     private LevelService levelService;
-    private LevelMapper levelMapper;
 
     @GetMapping("/levels")
     private List<LevelDto> findAllLevels() {
@@ -34,10 +30,11 @@ public class LevelController {
     }
 
     @PostMapping("/newlevel")
-    private LevelDto createLevel(@RequestBody LevelDto level) {
-        ModelMapper modelMapper = new ModelMapper();
-        LevelEntity dbLevel = modelMapper.map(level, LevelEntity.class);
-        dbLevel = levelRepository.save(dbLevel);
-        return modelMapper.map(dbLevel, LevelDto.class);
+    public ResponseEntity<String> createLevel(@RequestBody LevelDto level) {
+        LevelDto newLevel = levelService.createLevel(level);
+        if(newLevel != null) {
+            return new ResponseEntity<>("New level added!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
     }
 }

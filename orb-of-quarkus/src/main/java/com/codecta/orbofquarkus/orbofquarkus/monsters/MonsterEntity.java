@@ -3,7 +3,6 @@ package com.codecta.orbofquarkus.orbofquarkus.monsters;
 import com.codecta.orbofquarkus.orbofquarkus.dungeons.DungeonEntity;
 import com.codecta.orbofquarkus.orbofquarkus.items.ItemEntity;
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity

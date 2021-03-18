@@ -3,7 +3,6 @@ package com.codecta.orbofquarkus.orbofquarkus.dungeons;
 import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterDto;
 import com.codecta.orbofquarkus.orbofquarkus.players.PlayerDto;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 

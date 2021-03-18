@@ -1,11 +1,10 @@
 package com.codecta.orbofquarkus.orbofquarkus.monsters;
 
-import com.codecta.orbofquarkus.orbofquarkus.players.PlayerDto;
-import com.codecta.orbofquarkus.orbofquarkus.players.PlayerEntity;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class MonsterController {
     private MonsterRepository monsterRepository;
     private MonsterService monsterService;
-    private MonsterMapper monsterMapper;
 
     @GetMapping("/monsters")
     private List<MonsterDto> findAllMonsters() {
@@ -32,10 +30,11 @@ public class MonsterController {
     }
 
     @PostMapping("/newmonster")
-    private MonsterDto createMonster(@RequestBody MonsterDto monster) {
-        ModelMapper modelMapper = new ModelMapper();
-        MonsterEntity dbMonster = modelMapper.map(monster, MonsterEntity.class);
-        dbMonster = monsterRepository.save(dbMonster);
-        return modelMapper.map(dbMonster, MonsterDto.class);
+    public ResponseEntity<String> createMonster(@RequestBody MonsterDto monster) {
+        MonsterDto newMonster = monsterService.createMonster(monster);
+        if(newMonster != null) {
+            return new ResponseEntity<>("New monster added!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
     }
 }

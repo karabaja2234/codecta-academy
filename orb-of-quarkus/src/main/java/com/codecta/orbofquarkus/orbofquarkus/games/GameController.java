@@ -1,11 +1,10 @@
 package com.codecta.orbofquarkus.orbofquarkus.games;
 
-import com.codecta.orbofquarkus.orbofquarkus.items.ItemDto;
-import com.codecta.orbofquarkus.orbofquarkus.items.ItemEntity;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class GameController {
     private GameRepository gameRepository;
     private GameService gameService;
-    private GameMapper gameMapper;
 
     @GetMapping("/games")
     private List<GameDto> findAllGames() {
@@ -32,10 +30,11 @@ public class GameController {
     }
 
     @PostMapping("/newgame")
-    private GameDto createGame(@RequestBody GameDto game) {
-        ModelMapper modelMapper = new ModelMapper();
-        GameEntity dbGame = modelMapper.map(game, GameEntity.class);
-        dbGame = gameRepository.save(dbGame);
-        return modelMapper.map(dbGame, GameDto.class);
+    public ResponseEntity<String> createGame(@RequestBody GameDto game) {
+        GameDto newGame = gameService.createGame(game);
+        if(newGame != null) {
+            return new ResponseEntity<>("New game added!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
     }
 }

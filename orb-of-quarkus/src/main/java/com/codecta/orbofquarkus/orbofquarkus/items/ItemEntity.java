@@ -1,6 +1,5 @@
 package com.codecta.orbofquarkus.orbofquarkus.items;
 
-import com.codecta.orbofquarkus.orbofquarkus.maps.MapEntity;
 import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterEntity;
 import lombok.Data;
 import javax.persistence.*;

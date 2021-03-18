@@ -1,6 +1,7 @@
 package com.codecta.orbofquarkus.orbofquarkus.dungeons;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +11,13 @@ public class DungeonService {
     @Autowired
     private DungeonRepository dungeonRepository;
 
-    public Iterable<DungeonEntity> findAllDungeons () {
-        return dungeonRepository.findAll();
-    }
-
-    public DungeonEntity createDungeon(DungeonEntity entity) {
-        return dungeonRepository.save(entity);
+    public DungeonDto createDungeon(DungeonDto dungeon) {
+        if(dungeon.getMapId() == null) {
+            return null;
+        }
+        ModelMapper modelMapper = new ModelMapper();
+        DungeonEntity dbDungeon = modelMapper.map(dungeon, DungeonEntity.class);
+        dbDungeon = dungeonRepository.save(dbDungeon);
+        return modelMapper.map(dbDungeon,DungeonDto.class);
     }
 }

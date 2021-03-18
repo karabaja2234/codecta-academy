@@ -1,11 +1,10 @@
 package com.codecta.orbofquarkus.orbofquarkus.maps;
 
-import com.codecta.orbofquarkus.orbofquarkus.players.PlayerDto;
-import com.codecta.orbofquarkus.orbofquarkus.players.PlayerEntity;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class MapController {
     private MapRepository mapRepository;
     private MapService mapService;
-    private MapMapper mapMapper;
 
     @GetMapping("/maps")
     private List<MapDto> findAllMaps() {
@@ -32,10 +30,11 @@ public class MapController {
     }
 
     @PostMapping("/newmap")
-    private MapDto createMap(@RequestBody MapDto map) {
-        ModelMapper modelMapper = new ModelMapper();
-        MapEntity dbMap = modelMapper.map(map, MapEntity.class);
-        dbMap = mapRepository.save(dbMap);
-        return modelMapper.map(dbMap, MapDto.class);
+    public ResponseEntity<String> createMap(@RequestBody MapDto map) {
+        MapDto newMap = mapService.createMap(map);
+        if(newMap != null) {
+            return new ResponseEntity<>("New map added!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
     }
 }

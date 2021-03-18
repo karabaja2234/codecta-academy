@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Random;
 
@@ -25,12 +24,14 @@ public class PlayerService {
     private ItemRepository itemRepository;
     private MonsterRepository monsterRepository;
 
-    public Iterable<PlayerEntity> findAllPlayers() {
-        return playerRepository.findAll();
-    }
-
-    public PlayerEntity createPlayer(PlayerEntity entity) {
-        return playerRepository.save(entity);
+    public PlayerDto createPlayer(PlayerDto player) {
+        if(player.getDungeonId() == null) {
+            return null;
+        }
+        ModelMapper modelMapper = new ModelMapper();
+        PlayerEntity dbPlayer = modelMapper.map(player, PlayerEntity.class);
+        dbPlayer = playerRepository.save(dbPlayer);
+        return modelMapper.map(dbPlayer,PlayerDto.class);
     }
 
     public PlayerDto updatePlayersHealth(Integer id) {

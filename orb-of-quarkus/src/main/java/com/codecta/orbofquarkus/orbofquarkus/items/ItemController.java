@@ -1,11 +1,10 @@
 package com.codecta.orbofquarkus.orbofquarkus.items;
 
-import com.codecta.orbofquarkus.orbofquarkus.levels.LevelDto;
-import com.codecta.orbofquarkus.orbofquarkus.levels.LevelEntity;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class ItemController {
     private ItemRepository itemRepository;
     private ItemService itemService;
-    private ItemMapper itemMapper;
 
     @GetMapping("/items")
     private List<ItemDto> findAllItems() {
@@ -32,10 +30,11 @@ public class ItemController {
     }
 
     @PostMapping("/newitem")
-    private ItemDto createItem(@RequestBody ItemDto item) {
-        ModelMapper modelMapper = new ModelMapper();
-        ItemEntity dbItem = modelMapper.map(item, ItemEntity.class);
-        dbItem = itemRepository.save(dbItem);
-        return modelMapper.map(dbItem, ItemDto.class);
+    public ResponseEntity<String> createItem(@RequestBody ItemDto item) {
+        ItemDto newItem = itemService.createItem(item);
+        if(newItem != null) {
+            return new ResponseEntity<>("New item added!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
     }
 }
