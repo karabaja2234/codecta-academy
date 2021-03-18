@@ -63,16 +63,20 @@ public class PlayerService {
                 if(currentDungeonsMonsters.size() > 0) {
                     if(currentDungeonsMonsters.get(0).getHealth() <= 0) {
                         playerToUpdate.setDungeon(nextDungeon);
-                        playerToUpdate.setStatusMessage("Player moved to dungeon " + nextDungeon.getId() + "!");
-                        playerToUpdate = playerRepository.save(playerToUpdate);
-                        return modelMapper.map(playerToUpdate, PlayerDto.class);
-                    } else return null;
+                        playerToUpdate.setStatusMessage("Player moved to the next dungeon!");
+                    } else {
+                        playerToUpdate.setStatusMessage("In order to go to the next dungeon, you have to kill the monster first!");
+                    }
+                    playerToUpdate = playerRepository.save(playerToUpdate);
+                    return modelMapper.map(playerToUpdate, PlayerDto.class);
                 }
                 playerToUpdate.setDungeon(nextDungeon);
-                playerToUpdate.setStatusMessage("Player moved to dungeon " + nextDungeon.getId() + "!");
-                playerToUpdate = playerRepository.save(playerToUpdate);
-                return modelMapper.map(playerToUpdate, PlayerDto.class);
+                playerToUpdate.setStatusMessage("Player moved to the next dungeon!");
+            } else {
+                playerToUpdate.setStatusMessage("End of the road! You are in the last dungeon.");
             }
+            playerToUpdate = playerRepository.save(playerToUpdate);
+            return modelMapper.map(playerToUpdate, PlayerDto.class);
         }
         return null;
     }
@@ -85,10 +89,12 @@ public class PlayerService {
             DungeonEntity previousDungeon = dungeonRepository.findById(player.getDungeonId() - 1).orElse(null);
             if(previousDungeon != null) {
                 playerToUpdate.setDungeon(previousDungeon);
-                playerToUpdate.setStatusMessage("Player moved to dungeon " + previousDungeon.getId() + "!");
-                playerToUpdate = playerRepository.save(playerToUpdate);
-                return modelMapper.map(playerToUpdate, PlayerDto.class);
+                playerToUpdate.setStatusMessage("Player moved to the previous dungeon!");
+            } else {
+                playerToUpdate.setStatusMessage("There is no dungeon to go back to!");
             }
+            playerToUpdate = playerRepository.save(playerToUpdate);
+            return modelMapper.map(playerToUpdate, PlayerDto.class);
         }
         return null;
     }
@@ -120,21 +126,23 @@ public class PlayerService {
             List<MonsterEntity> currentDungeonsMonsters = currentDungeon.getMonsters();
             MonsterEntity currentMonster = null;
             if(currentDungeonsMonsters.size() == 0) {
-                return null;
+                return player;
             } else {
                 currentMonster = currentDungeonsMonsters.get(0);
                 if(currentMonster.getHealth() <= 0) {
                     ItemEntity monstersItem = currentMonster.getItem();
                     ItemEntity itemToUpdate = itemRepository.findById(monstersItem.getId()).orElse(null);
-                    if(monstersItem.getName().equals("Healing potion")) {
+                    if(monstersItem.getName().equals("Healing potion") && monstersItem.getValue() > 0) {
                         playerToUpdate.setHealingPotion(player.getHealingPotion() + monstersItem.getValue());
                         playerToUpdate.setStatusMessage("Player collected a healing potion!");
-                    } else if(monstersItem.getName().equals("Damage increase potion")) {
+                    } else if(monstersItem.getName().equals("Damage increase potion") && monstersItem.getValue() > 0) {
                         playerToUpdate.setDamageIncreasePotion(player.getDamageIncreasePotion() + monstersItem.getValue());
                         playerToUpdate.setStatusMessage("Player collected a damage increase potion!");
                     } else if(monstersItem.getName().equals("Orb of Quarkus")) {
                         playerToUpdate.setHasOrbOfQuarkus(true);
                         playerToUpdate.setStatusMessage("Congratulations, the Orb of Quarkus is yours!");
+                    } else {
+                        playerToUpdate.setStatusMessage("Player already collected an item in this dungeon!");
                     }
                     itemToUpdate.setValue(0);
                     itemToUpdate = itemRepository.save(itemToUpdate);

@@ -45,23 +45,29 @@ public class PlayerController {
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Player healed successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(updatedPlayer.getStatusMessage(), HttpStatus.OK);
     }
 
     @PutMapping("/players/{id}/move")
     public ResponseEntity<String> moveToNextDungeon(@PathVariable Integer id) {
+        PlayerEntity originalPlayer = playerRepository.findById(id).orElse(null);
         PlayerDto updatedPlayer = playerService.nextDungeon(id);
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        } else if(originalPlayer.getDungeon().getId() == updatedPlayer.getDungeonId()) {
+            return new ResponseEntity<>(updatedPlayer.getStatusMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Player moved to the next dungeon!", HttpStatus.OK);
     }
 
     @PutMapping("/players/{id}/goback")
     public ResponseEntity<String> goBackToPreviousDungeon(@PathVariable Integer id) {
+        PlayerEntity originalPlayer = playerRepository.findById(id).orElse(null);
         PlayerDto updatedPlayer = playerService.goBack(id);
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
+        } else if(originalPlayer.getDungeon().getId() == updatedPlayer.getDungeonId()) {
+            return new ResponseEntity<>(updatedPlayer.getStatusMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Player moved to the previous dungeon!", HttpStatus.OK);
     }
@@ -72,7 +78,7 @@ public class PlayerController {
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Player's damage successfully increased!", HttpStatus.OK);
+        return new ResponseEntity<>(updatedPlayer.getStatusMessage(), HttpStatus.OK);
     }
 
     @PutMapping("/players/{id}/collect")
@@ -81,7 +87,7 @@ public class PlayerController {
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Player successfully collected an item from the current dungeon!", HttpStatus.OK);
+        return new ResponseEntity<>(updatedPlayer.getStatusMessage(), HttpStatus.OK);
     }
 
     @PutMapping("/players/{id}/fight")
@@ -90,6 +96,6 @@ public class PlayerController {
         if(updatedPlayer == null) {
             return new ResponseEntity<>("Player not found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Player fought the monster from the current dungeon!", HttpStatus.OK);
+        return new ResponseEntity<>(updatedPlayer.getStatusMessage(), HttpStatus.OK);
     }
 }
