@@ -10,13 +10,13 @@ import java.util.stream.StreamSupport;
 public class MapMapper {
     public MapEntity toEntity(MapDto map) {
         var entity = new MapEntity();
-        BeanUtils.copyProperties(map, entity, MapAutoMapped.class);
+        BeanUtils.copyProperties(map, entity, MapEntity.class);
         return entity;
     }
 
     public MapDto toDto(MapEntity entity) {
         var dto = new MapDto();
-        BeanUtils.copyProperties(entity, dto, MapAutoMapped.class);
+        BeanUtils.copyProperties(entity, dto, MapDto.class);
         return dto;
     }
 

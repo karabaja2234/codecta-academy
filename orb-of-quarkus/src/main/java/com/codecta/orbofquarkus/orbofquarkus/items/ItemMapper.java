@@ -10,13 +10,13 @@ import java.util.stream.StreamSupport;
 public class ItemMapper {
     public ItemEntity toEntity(ItemDto item) {
         var entity = new ItemEntity();
-        BeanUtils.copyProperties(item, entity, ItemAutoMapped.class);
+        BeanUtils.copyProperties(item, entity, ItemEntity.class);
         return entity;
     }
 
     public ItemDto toDto(ItemEntity entity) {
         var dto = new ItemDto();
-        BeanUtils.copyProperties(entity, dto, ItemAutoMapped.class);
+        BeanUtils.copyProperties(entity, dto, ItemDto.class);
         return dto;
     }
 

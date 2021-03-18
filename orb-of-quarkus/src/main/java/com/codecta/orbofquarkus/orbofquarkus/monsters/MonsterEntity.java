@@ -14,7 +14,7 @@ import javax.persistence.*;
                 @Index(name = "monster_id_index", columnList = "id")
         }
 )
-public class MonsterEntity extends MonsterAutoMapped{
+public class MonsterEntity {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -29,11 +29,11 @@ public class MonsterEntity extends MonsterAutoMapped{
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional=false)
-    @JoinColumn(name = "item_id", nullable=false)
+    @ManyToOne
+    @JoinColumn(name="item_id")
     private ItemEntity item;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional=false)
-    @JoinColumn(name = "dungeon_id", nullable=false)
+    @ManyToOne
+    @JoinColumn(name="dungeon_id")
     private DungeonEntity dungeon;
 }

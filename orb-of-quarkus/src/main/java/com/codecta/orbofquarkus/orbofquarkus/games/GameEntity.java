@@ -16,12 +16,12 @@ import java.util.List;
                 @Index(name = "game_id_index", columnList = "id")
         }
 )
-public class GameEntity extends GameAutoMapped {
+public class GameEntity {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-    private List<MapEntity> maps;
+    @OneToMany(mappedBy = "game",fetch= FetchType.LAZY)
+    private List<MapEntity> maps = new ArrayList<>();
 }

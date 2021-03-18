@@ -10,13 +10,13 @@ import java.util.stream.StreamSupport;
 public class LevelMapper {
     public LevelEntity toEntity(LevelDto level) {
         var entity = new LevelEntity();
-        BeanUtils.copyProperties(level, entity, LevelAutoMapped.class);
+        BeanUtils.copyProperties(level, entity, LevelEntity.class);
         return entity;
     }
 
     public LevelDto toDto(LevelEntity entity) {
         var dto = new LevelDto();
-        BeanUtils.copyProperties(entity, dto, LevelAutoMapped.class);
+        BeanUtils.copyProperties(entity, dto, LevelDto.class);
         return dto;
     }
 

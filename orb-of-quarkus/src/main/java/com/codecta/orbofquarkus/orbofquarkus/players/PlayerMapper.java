@@ -11,13 +11,13 @@ import java.util.stream.StreamSupport;
 public class PlayerMapper {
     public PlayerEntity toEntity(PlayerDto player) {
         var entity = new PlayerEntity();
-        BeanUtils.copyProperties(player, entity, PlayerAutoMapped.class);
+        BeanUtils.copyProperties(player, entity, PlayerEntity.class);
         return entity;
     }
 
     public PlayerDto toDto(PlayerEntity entity) {
         var dto = new PlayerDto();
-        BeanUtils.copyProperties(entity, dto, PlayerAutoMapped.class);
+        BeanUtils.copyProperties(entity, dto, PlayerDto.class);
         return dto;
     }
 

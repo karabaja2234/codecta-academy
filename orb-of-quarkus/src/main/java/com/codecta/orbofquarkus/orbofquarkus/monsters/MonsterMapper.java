@@ -10,13 +10,13 @@ import java.util.stream.StreamSupport;
 public class MonsterMapper {
     public MonsterEntity toEntity(MonsterDto monster) {
         var entity = new MonsterEntity();
-        BeanUtils.copyProperties(monster, entity, MonsterAutoMapped.class);
+        BeanUtils.copyProperties(monster, entity, MonsterEntity.class);
         return entity;
     }
 
     public MonsterDto toDto(MonsterEntity entity) {
         var dto = new MonsterDto();
-        BeanUtils.copyProperties(entity, dto, MonsterAutoMapped.class);
+        BeanUtils.copyProperties(entity, dto, MonsterDto.class);
         return dto;
     }
 

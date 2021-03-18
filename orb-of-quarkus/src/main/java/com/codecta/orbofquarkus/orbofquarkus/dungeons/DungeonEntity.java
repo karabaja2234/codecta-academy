@@ -5,6 +5,7 @@ import com.codecta.orbofquarkus.orbofquarkus.monsters.MonsterEntity;
 import com.codecta.orbofquarkus.orbofquarkus.players.PlayerEntity;
 import lombok.Data;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,19 +16,19 @@ import java.util.List;
                 @Index(name = "dungeon_id_index", columnList = "id")
         }
 )
-public class DungeonEntity extends DungeonAutoMapped{
+public class DungeonEntity {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToMany(mappedBy = "dungeon", cascade = CascadeType.ALL)
-    private List<MonsterEntity> monsters;
+    @OneToMany(mappedBy = "dungeon", fetch= FetchType.LAZY)
+    private List<MonsterEntity> monsters = new ArrayList<>();
 
-    @OneToMany(mappedBy = "dungeon", cascade = CascadeType.ALL)
-    private List<PlayerEntity> players;
+    @OneToMany(mappedBy = "dungeon", fetch= FetchType.LAZY)
+    private List<PlayerEntity> players = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY,optional=false)
-    @JoinColumn(name = "map_id", nullable=false)
+    @ManyToOne
+    @JoinColumn(name="map_id")
     private MapEntity map;
 }

@@ -13,7 +13,7 @@ import javax.persistence.*;
                 @Index(name = "player_id_index", columnList = "id")
         }
 )
-public class PlayerEntity extends PlayerAutoMapped {
+public class PlayerEntity {
 
     @Id
     @GeneratedValue
@@ -41,7 +41,7 @@ public class PlayerEntity extends PlayerAutoMapped {
     @Column(name = "status_message")
     private String statusMessage;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional=false)
-    @JoinColumn(name = "dungeon_id", nullable=false)
+    @ManyToOne
+    @JoinColumn(name="dungeon_id")
     private DungeonEntity dungeon;
 }

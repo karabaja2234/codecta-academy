@@ -1,14 +1,16 @@
 package com.codecta.orbofquarkus.orbofquarkus.maps;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class MapService {
+    @Autowired
     private MapRepository mapRepository;
 
-    public Iterable<MapEntity> findAllMaps () {
+    public Iterable<MapEntity> findAllMaps() {
         return mapRepository.findAll();
     }
 

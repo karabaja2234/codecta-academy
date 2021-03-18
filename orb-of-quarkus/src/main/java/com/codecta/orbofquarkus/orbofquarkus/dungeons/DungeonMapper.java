@@ -10,13 +10,13 @@ import java.util.stream.StreamSupport;
 public class DungeonMapper {
     public DungeonEntity toEntity(DungeonDto game) {
         var entity = new DungeonEntity();
-        BeanUtils.copyProperties(game, entity, DungeonAutoMapped.class);
+        BeanUtils.copyProperties(game, entity, DungeonEntity.class);
         return entity;
     }
 
     public DungeonDto toDto(DungeonEntity entity) {
         var dto = new DungeonDto();
-        BeanUtils.copyProperties(entity, dto, DungeonAutoMapped.class);
+        BeanUtils.copyProperties(entity, dto, DungeonDto.class);
         return dto;
     }
 
